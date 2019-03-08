@@ -1,0 +1,1 @@
+ALTER TABLE BODEGA ADD codigo_bodega_erp nvarchar(25)
