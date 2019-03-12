@@ -141,3 +141,14 @@ GROUP BY dbo.propietarios.nombre_comercial, dbo.propietarios.IdPropietario, dbo.
                          dbo.bodega_ubicacion.descripcion, dbo.bodega_tramo.descripcion, dbo.bodega_ubicacion.orientacion_pos, dbo.motivo_devolucion.Nombre, 
                          dbo.trans_oc_pol.NoPoliza
 GO
+
+ALTER VIEW [dbo].[VW_Bodega]
+AS
+SELECT        b.IdBodega AS Correlativo, p.NOMBRE AS Pais, e.nombre AS Empresa, b.codigo AS Código, b.nombre AS Nombre, b.nombre_comercial AS NombreComercial, 
+                         b.encargado AS Responsable, b.activo AS Activo
+FROM            dbo.bodega AS b INNER JOIN
+                         dbo.empresa AS e ON b.IdEmpresa = e.IdEmpresa LEFT OUTER JOIN
+                         dbo.paises AS p ON b.IdPais = p.IdPais
+GO
+
+
