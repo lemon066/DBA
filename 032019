@@ -3,3 +3,6 @@ alter table producto_estado add codigo_bodega_erp nvarchar(25)
 alter table bodega_ubicacion add codigo_bodega_erp nvarchar(25)
 alter table bodega add ubic_transito nvarchar(25)
 alter table bodega_ubicacion add ubicacion_transito bit default 0
+alter table bodega drop column ubic_transito 
+alter table bodega_ubicacion drop column ubicacion_transito
+alter table bodega alter column codigo nvarchar(25) collate sql_latin1_general_cp1_ci_as
