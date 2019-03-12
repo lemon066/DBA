@@ -1,3 +1,4 @@
-ALTER TABLE BODEGA ADD CODIGO_BODEGA_ERP NVARCHAR(25)
-ALTER TABLE PRODUCTO_ESTADO ADD CODIGO_BODEGA_ERP NVARCHAR(25)
-ALTER TABLE BODEGA_UBICACION ADD CODIGO_BODEGA_ERP NVARCHAR(25)
+alter table bodega add codigo_bodega_erp nvarchar(25)
+alter table producto_estado add codigo_bodega_erp nvarchar(25)
+alter table bodega_ubicacion add codigo_bodega_erp nvarchar(25)
+alter table bodega add ubic_transito nvarchar(25)
