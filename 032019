@@ -216,7 +216,7 @@ GO
 
 
 
-CREATE VIEW [dbo].[VW_Despacho_Rep_Det]
+ALTER VIEW [dbo].[VW_Despacho_Rep_Det]
 AS
 SELECT        dbo.trans_picking_ubic.IdPickingUbic, dbo.trans_picking_ubic.IdStock, dbo.trans_picking_ubic.IdPedidoDet, dbo.trans_picking_ubic.IdPropietarioBodega, 
                          dbo.trans_picking_ubic.IdProductoBodega, dbo.trans_picking_ubic.IdProductoEstado, dbo.trans_picking_ubic.IdPresentacion, 
