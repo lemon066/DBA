@@ -15,7 +15,7 @@ insert into trans_oc_ti values (3,'Transferencia', 0,1,GETDATE(),1,GETDATE(),1)
 update proveedor_bodega set activo = 1
 update cliente_bodega set activo = 1
 alter table cliente add control_ultimo_lote bit default 0
-alter table trans_pe_det add control_ultimo_lote bit default 0
+alter table trans_pe_enc add control_ultimo_lote bit default 0
 
 /****** Excluir las ubicaciones de tránsito para stock específico en pedidos ******/
 ALTER VIEW [dbo].[VW_Stock_Especifico]
