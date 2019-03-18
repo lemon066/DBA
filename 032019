@@ -343,4 +343,29 @@ GROUP BY p.codigo, p.nombre, pp.nombre, pe.nombre, um.Nombre, pr.nombre_comercia
                          dbo.empresa_transporte_pilotos.no_licencia, dbo.cliente.IdCliente, dbo.trans_pe_enc.Fecha_Pedido, dbo.trans_despacho_enc.fecha, p.IdProducto
 GO
 
+CREATE TABLE [dbo].[trans_series_doc](
+    [IdCorrelativo] [int] NOT NULL,
+    [Serie] [nvarchar](20) NOT NULL,
+    [Tipo_Doc] [nvarchar](20) NOT NULL,
+	[IdTipoTrans] int NOT NULL,
+    [Inicial] [int] NULL,
+    [Final] [int] NULL,
+    [Actual] [int] NULL,
+    [Activo] [bit] NOT NULL,
+    [IdBodega] [int] NOT NULL,
+    [UserAgr] [nvarchar](25) NULL,
+    [FecAgr] [datetime] NULL,
+    [UserMod] [nvarchar](25) NULL,
+    [FecMod] [datetime] NULL,
+ CONSTRAINT [PK_Correlativo] PRIMARY KEY CLUSTERED
+(
+    [IdCorrelativo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 
+ALTER TABLE [dbo].[trans_series_doc]  WITH CHECK ADD  CONSTRAINT [FK_correlativo_bodega] FOREIGN KEY([IdBodega])
+REFERENCES [dbo].[bodega] ([IdBodega])
+GO
+
+ALTER TABLE [dbo].[trans_series_doc] CHECK CONSTRAINT [FK_correlativo_bodega]
+GO
