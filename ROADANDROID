@@ -1,0 +1,63 @@
+/*Contiene el listado de dispositivos válidos con licenciamiento*/
+CREATE TABLE [dbo].[licencia_item](
+	[idDisp] [nvarchar](200) NOT NULL,
+	[identificacion] [nvarchar](200) NULL,
+	[tipo] [int] NULL,
+	[bandera] [int] NULL,
+	[estado] [nvarchar](200) NULL,
+	[activo] [bit] NULL default 1,
+	[fec_agr] [datetime] NULL default GETDATE(),
+ CONSTRAINT [PK_licencia_item] PRIMARY KEY CLUSTERED 
+(
+	[idDisp] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[licencia_item] ADD  CONSTRAINT [DF_licencia_item_bandera]  DEFAULT ((0)) FOR [bandera]
+GO
+
+/*Contiene la llave maestra que indica la cantidad de equipos con licenciamiento*/
+CREATE TABLE [dbo].[licencia_llave](
+	[idLlave] [int] NOT NULL,
+	[Llave] [nvarchar](250) NOT NULL,
+	[activo] [bit] NULL default 1,
+	[fec_agr] [datetime] NULL default GETDATE(),
+ CONSTRAINT [PK_licencia_llave] PRIMARY KEY CLUSTERED 
+(
+	[idLlave] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[licencia_llave] ADD  CONSTRAINT [DF_licencia_llave_Llave]  DEFAULT ('') FOR [Llave]
+GO
+
+/*Contiene el registro de cada vez que una máquina se loguea en el sistema*/
+CREATE TABLE [dbo].[licencia_login](
+	[idLicenciaLogin] [int] NOT NULL,
+	[idDisp] [nvarchar](200) NOT NULL,
+	[valor] [nvarchar](200) NULL,
+	[fec_agr] [datetime] NULL default GETDATE(),
+ CONSTRAINT [PK_licencia_login] PRIMARY KEY CLUSTERED 
+(
+	[idLicenciaLogin] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/*Contiene el registro de solicitudes de equipos que no tienen licencia pero se conectan al servidor de licencias.*/
+CREATE TABLE [dbo].[licencia_solic](
+	[idDisp] [nvarchar](200) NOT NULL,
+	[identificacion] [nvarchar](200) NULL,
+	[tipo] [int] NULL,
+	[estado] [nvarchar](200) NULL,
+	[fec_agr] [datetime] NULL default GETDATE(),
+ CONSTRAINT [PK_licencia_solic] PRIMARY KEY CLUSTERED 
+(
+	[idDisp] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
