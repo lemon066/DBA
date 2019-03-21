@@ -1,2 +1,4 @@
-# TOMIMSWMS_BD
-Scripts to upgrade database to latest version
+#DBA-DTS
+Scripts to upgrade database(s) to latest version.
+
+Updated 20/03/2019!
