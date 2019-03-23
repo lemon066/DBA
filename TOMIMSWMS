@@ -404,6 +404,7 @@ alter table trans_pe_enc add Correlativo int
 
 alter table trans_oc_enc add serie nvarchar(25)
 alter table trans_oc_enc add correlativo int
+alter table trans_oc_enc add IdDespachoEnc int null
 
 alter table unidad_medida add codigo nvarchar(25)
 
