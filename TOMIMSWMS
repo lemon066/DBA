@@ -347,6 +347,13 @@ GROUP BY p.codigo, p.nombre, pp.nombre, pe.nombre, um.Nombre, pr.nombre_comercia
                          dbo.empresa_transporte_pilotos.no_licencia, dbo.cliente.IdCliente, dbo.trans_pe_enc.Fecha_Pedido, dbo.trans_despacho_enc.fecha, p.IdProducto
 GO
 
+ALTER VIEW [dbo].[VW_UnidadMedida]
+AS
+SELECT        p.nombre_comercial AS Propietario, e.IdUnidadMedida, e.IdPropietario, e.Nombre, e.activo, e.fec_agr, e.user_mod, e.fec_mod, e.user_agr, e.codigo
+FROM            dbo.unidad_medida AS e INNER JOIN
+                         dbo.propietarios AS p ON e.IdPropietario = p.IdPropietario
+GO
+
 CREATE TABLE [dbo].[trans_series_doc](
     [IdTransSerieDoc] [int] NOT NULL,
     [Serie] [nvarchar](20) NOT NULL,
