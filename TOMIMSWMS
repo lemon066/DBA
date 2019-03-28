@@ -408,3 +408,22 @@ alter table trans_oc_enc add IdDespachoEnc int null
 
 alter table unidad_medida add codigo nvarchar(25)
 
+CREATE TABLE [dbo].[configuracion_barra_pallet](
+	[IdConfiguracionPallet] [int] NOT NULL,
+	[LongCodBodegaOrigen] [int] NULL,
+	[LongCodProducto] [int] NULL,
+	[LongLP] [int] NULL,
+	[CodigoNumerico] [bit] NULL,
+ CONSTRAINT [PK_configuracion_barra_pallet] PRIMARY KEY CLUSTERED 
+(
+	[IdConfiguracionPallet] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Si verdadero, entonces se hace un val del código en la HH de lo contrario se tomarán los ceros a la izquierda como parte del código' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'configuracion_barra_pallet', @level2type=N'COLUMN',@level2name=N'CodigoNumerico'
+GO
+
+alter table proveedor add IdConfiguracionPallet int null
+
+
