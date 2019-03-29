@@ -381,33 +381,6 @@ GO
 ALTER TABLE [dbo].[trans_series_doc] CHECK CONSTRAINT [FK_correlativo_bodega]
 GO
 
-alter table trans_re_enc add No_Marchamo nvarchar(50)
-alter table bodega add codigo_bodega_erp nvarchar(25)
-alter table producto_estado add codigo_bodega_erp nvarchar(25)
-alter table bodega_ubicacion add codigo_bodega_erp nvarchar(25)
-alter table bodega add ubic_transito nvarchar(25)
-alter table bodega alter column codigo nvarchar(25) collate sql_latin1_general_cp1_ci_as
-alter table road_p_vendedor drop constraint PK_P_VENDEDOR
-alter table road_p_vendedor alter column codigo nvarchar(8) collate sql_latin1_general_cp1_ci_as not null
-alter table road_p_vendedor add constraint PK_P_VENDEDOR  PRIMARY KEY (codigo)
-alter table road_p_vendedor alter column nombre nvarchar(50) collate sql_latin1_general_cp1_ci_as not null
-insert into trans_oc_ti values (3,'Transferencia', 0,1,GETDATE(),1,GETDATE(),1)
-update proveedor_bodega set activo = 1
-update cliente_bodega set activo = 1
-alter table cliente add control_ultimo_lote bit default 0
-alter table trans_pe_enc add control_ultimo_lote bit default 0
-
-
-alter table i_nav_barras_pallet add Cantidad_UMP float
-alter table trans_pe_enc add Serie nvarchar(25)
-alter table trans_pe_enc add Correlativo int
-
-alter table trans_oc_enc add serie nvarchar(25)
-alter table trans_oc_enc add correlativo int
-alter table trans_oc_enc add IdDespachoEnc int null
-
-alter table unidad_medida add codigo nvarchar(25)
-
 /****** Changes ON Date: 28/03/2019 05:09:42 p.m. ******/
 CREATE TABLE [dbo].[configuracion_barra_pallet](
 	[IdConfiguracionPallet] [int] NOT NULL,
@@ -438,6 +411,35 @@ FROM            dbo.proveedor AS p INNER JOIN
                          dbo.propietarios AS pr ON p.IdPropietario = pr.IdPropietario LEFT OUTER JOIN
                          dbo.proveedor_bodega ON p.IdProveedor = dbo.proveedor_bodega.IdProveedor
 GO
+
+
+alter table trans_re_enc add No_Marchamo nvarchar(50)
+alter table bodega add codigo_bodega_erp nvarchar(25)
+alter table producto_estado add codigo_bodega_erp nvarchar(25)
+alter table bodega_ubicacion add codigo_bodega_erp nvarchar(25)
+alter table bodega add ubic_transito nvarchar(25)
+alter table bodega alter column codigo nvarchar(25) collate sql_latin1_general_cp1_ci_as
+alter table road_p_vendedor drop constraint PK_P_VENDEDOR
+alter table road_p_vendedor alter column codigo nvarchar(8) collate sql_latin1_general_cp1_ci_as not null
+alter table road_p_vendedor add constraint PK_P_VENDEDOR  PRIMARY KEY (codigo)
+alter table road_p_vendedor alter column nombre nvarchar(50) collate sql_latin1_general_cp1_ci_as not null
+insert into trans_oc_ti values (3,'Transferencia', 0,1,GETDATE(),1,GETDATE(),1)
+update proveedor_bodega set activo = 1
+update cliente_bodega set activo = 1
+alter table cliente add control_ultimo_lote bit default 0
+alter table trans_pe_enc add control_ultimo_lote bit default 0
+
+
+alter table i_nav_barras_pallet add Cantidad_UMP float
+alter table trans_pe_enc add Serie nvarchar(25)
+alter table trans_pe_enc add Correlativo int
+
+alter table trans_oc_enc add serie nvarchar(25)
+alter table trans_oc_enc add correlativo int
+alter table trans_oc_enc add IdDespachoEnc int null
+alter table unidad_medida add codigo nvarchar(25)
+alter table estructura_tramo add Horizontal bit default 0 
+alter table bodega_tramo add Horizontal bit default 0
 
 
 
