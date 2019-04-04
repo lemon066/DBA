@@ -441,5 +441,6 @@ alter table unidad_medida add codigo nvarchar(25)
 alter table estructura_tramo add Horizontal bit default 0 
 alter table bodega_tramo add Horizontal bit default 0
 
-
+alter table i_nav_transacciones_out add lic_plate nvarchar(50) collate Modern_Spanish_CI_AS
+alter table i_nav_transacciones_out add uds_lic_plate float
 
