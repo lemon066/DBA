@@ -431,6 +431,9 @@ alter table trans_pe_enc add control_ultimo_lote bit default 0
 
 
 alter table i_nav_barras_pallet add Cantidad_UMP float
+
+alter table configuracion_barra_pallet add IdentificadorInicio char(4)
+
 alter table trans_pe_enc add Serie nvarchar(25)
 alter table trans_pe_enc add Correlativo int
 
