@@ -454,6 +454,12 @@ alter table producto_presentacion add IdPresentacionPallet int FOREIGN KEY (IdPr
 alter table trans_movimientos add lic_plate nvarchar(50)
 
 
+INSERT INTO menu_sistema VALUES('6.1.1.13','Existencias por LP','cmdRpExitLP','4','6.1.1','0')
+
+INSERT INTO menu_rol
+SELECT max(idMenuRol) + 1,'6.1.1.13','1','Erik Calderón','2019-04-10 00:00:00.000','Erik Calderón','2019-04-10 00:00:00.000','1','1'
+from menu_rol
+ 
 
 CREATE TABLE [dbo].[trans_inv_ne](
 	[idinventarione] [int] NOT NULL,
