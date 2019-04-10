@@ -451,6 +451,10 @@ alter table trans_inv_enc add capturar_no_existente bit default 0
 
 alter table producto_presentacion add IdPresentacionPallet int FOREIGN KEY (IdPresentacionPallet) REFERENCES producto_presentacion(IdPresentacion)
 
+alter table trans_movimientos add lic_plate nvarchar(50)
+
+
+
 CREATE TABLE [dbo].[trans_inv_ne](
 	[idinventarione] [int] NOT NULL,
 	[idinventarioenc] [int] NOT NULL,
