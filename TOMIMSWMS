@@ -449,6 +449,8 @@ alter table i_nav_transacciones_out add uds_lic_plate float
 
 alter table trans_inv_enc add capturar_no_existente bit default 0
 
+alter table producto_presentacion add IdPresentacionPallet int FOREIGN KEY (IdPresentacionPallet) REFERENCES producto_presentacion(IdPresentacion)
+
 CREATE TABLE [dbo].[trans_inv_ne](
 	[idinventarione] [int] NOT NULL,
 	[idinventarioenc] [int] NOT NULL,
@@ -464,4 +466,15 @@ CREATE TABLE [dbo].[trans_inv_ne](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-alter table producto_presentacion add IdPresentacionPallet int FOREIGN KEY (IdPresentacionPallet) REFERENCES producto_presentacion(IdPresentacion)
+ALTER VIEW [dbo].[VW_ProductoPresentacion]
+AS
+SELECT        p.nombre AS Producto, pp.IdPresentacion, pp.IdProducto, pp.codigo_barra, pp.nombre, pp.imprime_barra, pp.peso, pp.alto, pp.largo, pp.ancho, pp.factor, 
+                         pp.MinimoExistencia, pp.MaximoExistencia, pp.user_agr, pp.fec_agr, pp.user_mod, pp.fec_mod, pp.activo, pp.EsPallet, pp.Precio, pp.MinimoPeso, pp.MaximoPeso, 
+                         pp.Costo, pp.CamasPorTarima, pp.CajasPorCama, pp.genera_lp_auto, pp.permitir_paletizar, pp.sistema, pp.IdPresentacionPallet
+FROM            dbo.producto_presentacion AS pp INNER JOIN
+                         dbo.producto AS p ON pp.IdProducto = p.IdProducto
+GO
+
+
+
+
