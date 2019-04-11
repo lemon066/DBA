@@ -487,4 +487,21 @@ GO
 
 
 
+INSERT INTO menu_sistema VALUES('6.1.1.14','Existencias con rec','cmdExistCnRec','4','6.1.1','0')
+INSERT INTO menu_rol
+SELECT max(idMenuRol) + 1,'6.1.1.14','1','Erik Calderón','2019-04-10 00:00:00.000','Erik Calderón','2019-04-10 00:00:00.000','1','1'
+from menu_rol
+ 
+update menu_sistema 
+set nombre_lgco='cmdMi3', solicitar_clave_autorizacion = 0
+where IdMenu = '7.5.1'
+ 
+INSERT INTO menu_sistema VALUES('7.5.1.1','Transacciones Out','cmdTransaccionesOut','4','7.5.1','1')
+INSERT INTO menu_sistema VALUES('7.5.1.1','Barras Pallet','cmdBarrasPallet','4','7.5.1','1')
+INSERT INTO menu_rol
+SELECT max(idMenuRol) + 1,'7.5.1.1','1','Erik Calderón','2019-04-10 00:00:00.000','Erik Calderón','2019-04-10 00:00:00.000','1','1'
+from menu_rol
+INSERT INTO menu_rol
+SELECT max(idMenuRol) + 1,'7.5.1.2','1','Erik Calderón','2019-04-10 00:00:00.000','Erik Calderón','2019-04-10 00:00:00.000','1','1'
+from menu_rol
 
