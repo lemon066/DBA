@@ -536,3 +536,50 @@ GROUP BY dbo.propietarios.nombre_comercial, dbo.propietarios.IdPropietario, dbo.
                          dbo.stock.IdPresentacion, dbo.stock.IdRecepcionEnc, dbo.stock.lic_plate, dbo.stock.peso, dbo.producto.IdIndiceRotacion, dbo.producto_presentacion.alto, 
                          dbo.producto_presentacion.largo, dbo.producto_presentacion.ancho, dbo.producto_presentacion.factor
 GO
+
+ALTER TABLE [dbo].[licencia_item] DROP CONSTRAINT [PK_licencia_item] WITH ( ONLINE = OFF )
+GO
+ALTER TABLE [licencia_item] 
+ALTER COLUMN idDisp nvarchar (500) not null
+SET ANSI_PADDING ON
+GO
+/****** Object: Index [PK_licencia_item] Script Date: 26/04/2019 9:01:51 ******/
+ALTER TABLE [dbo].[licencia_item] ADD CONSTRAINT [PK_licencia_item] PRIMARY KEY CLUSTERED 
+(
+[idDisp] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+ALTER TABLE licencia_item 
+ALTER COLUMN identificacion nvarchar (500)
+ALTER TABLE licencia_llave 
+ALTER COLUMN Llave nvarchar (500)
+ALTER TABLE licencia_login 
+ALTER COLUMN valor nvarchar (500)
+ALTER TABLE [dbo].[licencia_login] DROP CONSTRAINT [PK_licencia_login] WITH ( ONLINE = OFF )
+GO
+ALTER TABLE [licencia_login] 
+ALTER COLUMN idDisp nvarchar (500) not null
+SET ANSI_PADDING ON
+GO
+/****** Object: Index [PK_licencia_item] Script Date: 26/04/2019 9:01:51 ******/
+ALTER TABLE [dbo].[licencia_login] ADD CONSTRAINT [PK_licencia_login] PRIMARY KEY CLUSTERED 
+(
+[idDisp] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE licencia_solic 
+ALTER COLUMN identificacion nvarchar (500)
+
+ALTER TABLE [dbo].[licencia_solic] DROP CONSTRAINT [PK_licencia_solic] WITH ( ONLINE = OFF )
+GO
+ALTER TABLE [licencia_solic] 
+ALTER COLUMN idDisp nvarchar (500) not null
+SET ANSI_PADDING ON
+GO
+/****** Object: Index [PK_licencia_item] Script Date: 26/04/2019 9:01:51 ******/
+ALTER TABLE [dbo].[licencia_solic] ADD CONSTRAINT [PK_licencia_solic] PRIMARY KEY CLUSTERED 
+(
+[idDisp] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
