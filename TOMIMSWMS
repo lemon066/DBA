@@ -661,6 +661,7 @@ CREATE TABLE [dbo].[trans_re_det_lote_num](
 	[Lote] [nvarchar](50) NULL,
 	[LoteNum] [int] NULL,
 	[FechaIngreso] [date] NULL,
+	[Cantidad] [float] NULL,
  CONSTRAINT [PK_lote_num] PRIMARY KEY CLUSTERED 
 (
 	[IdLoteNum] ASC
