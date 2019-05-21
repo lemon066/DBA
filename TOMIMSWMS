@@ -657,6 +657,6 @@ GO
 alter table stock add lote_alias int
 alter table trans_movimientos add lote_alias int
 alter table trans_re_det add lote_alias int
-alter table bodega add generar_lote_numerico_interno bit default 1
+
 
 
