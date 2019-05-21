@@ -659,7 +659,7 @@ CREATE TABLE [dbo].[trans_re_det_lote_num](
 	[IdProductoBodega] [int] NULL,
 	[Codigo] [nvarchar](50) NULL,
 	[Lote] [nvarchar](50) NULL,
-	[LoteNum] [int] NULL,
+	[Lote_Numerico] [int] NULL,
 	[FechaIngreso] [date] NULL,
 	[Cantidad] [float] NULL,
  CONSTRAINT [PK_lote_num] PRIMARY KEY CLUSTERED 
