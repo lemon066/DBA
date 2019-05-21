@@ -654,4 +654,8 @@ END
 GO
 
 
+alter table stock add lote_alias int
+alter table trans_movimientos add lote_alias int
+alter table trans_re_det add lote_alias int
+
 
