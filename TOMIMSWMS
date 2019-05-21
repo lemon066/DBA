@@ -653,6 +653,8 @@ END
 
 GO
 
+alter table i_nav_barras_pallet add Lote_Numerico int
+
 CREATE TABLE [dbo].[trans_re_det_lote_num](
 	[IdLoteNum] [int] NOT NULL,
 	[IdRecepcionEnc] [int] NULL,
