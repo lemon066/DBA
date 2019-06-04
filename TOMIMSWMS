@@ -693,7 +693,7 @@ CREATE TABLE [dbo].[trans_despacho_det_lote_num](
 GO
 
 
-
+alter table bodega_tramo add Horizontal bit
 
 
 
