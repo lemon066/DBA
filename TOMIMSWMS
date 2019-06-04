@@ -347,6 +347,9 @@ GROUP BY p.codigo, p.nombre, pp.nombre, pe.nombre, um.Nombre, pr.nombre_comercia
                          dbo.empresa_transporte_pilotos.no_licencia, dbo.cliente.IdCliente, dbo.trans_pe_enc.Fecha_Pedido, dbo.trans_despacho_enc.fecha, p.IdProducto
 GO
 
+'#EJC20190604
+ALTER TABLE unidad_medida add codigo nvarchar(25)
+
 ALTER VIEW [dbo].[VW_UnidadMedida]
 AS
 SELECT        p.nombre_comercial AS Propietario, e.IdUnidadMedida, e.IdPropietario, e.Nombre, e.activo, e.fec_agr, e.user_mod, e.fec_mod, e.user_agr, e.codigo
