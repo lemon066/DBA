@@ -695,7 +695,6 @@ GO
 
 alter table bodega_tramo add Horizontal bit
 
-
 CREATE VIEW [dbo].[VW_Cambios_Ubicacion]
 AS
 SELECT        TOP (100) PERCENT dbo.trans_movimientos.IdBodegaOrigen, dbo.sis_tipo_tarea.Nombre AS TipoTarea, dbo.producto.codigo AS Código, dbo.producto.nombre AS Producto, dbo.trans_movimientos.cantidad as Cantidad, 
@@ -714,7 +713,7 @@ bodega_tramo_1.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVA
 + ' - ' + 'Pos' + bodega_ubicacion_1.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion_1.IdUbicacion) 
 ELSE bodega_tramo_1.descripcion END AS Ubicacion_Destino,
 						 dbo.trans_movimientos.fecha as Fecha, dbo.trans_movimientos.IdPresentacion, dbo.producto_presentacion.nombre AS Presentacion, 
-                         dbo.producto_presentacion.factor AS Factor
+                         dbo.producto_presentacion.factor AS Factor, trans_movimientos.IdProductoBodega
 FROM            dbo.propietarios INNER JOIN
                          dbo.trans_movimientos INNER JOIN
                          dbo.sis_tipo_tarea ON dbo.trans_movimientos.IdTipoTarea = dbo.sis_tipo_tarea.IdTipoTarea INNER JOIN
