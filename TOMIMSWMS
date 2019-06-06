@@ -696,26 +696,10 @@ GO
 alter table bodega_tramo add Horizontal bit
 
 
-CREATE VIEW [dbo].[VW_Bodega_Ubicacion]
-AS
-SELECT bodega.IdBodega, bodega.codigo, bodega.nombre, bodega_area.IdArea, bodega_area.Descripcion AS Area, bodega_sector.IdSector, bodega_sector.descripcion AS Sector, 
-bodega_tramo.IdTramo, bodega_tramo.descripcion AS Tramo, bodega_ubicacion.IdUbicacion,
-CASE WHEN bodega_tramo.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(bodega_tramo.descripcion, 2, 
-iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 1, CHARINDEX('-', bodega_tramo.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), 
-bodega_ubicacion.indice_x), 2) + ' - ' + 'T' + SUBSTRING(bodega_tramo.descripcion, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 0, CHARINDEX('-', 
-bodega_tramo.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.nivel), 2) 
-+ ' - ' + 'Pos' + bodega_ubicacion.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) 
-ELSE bodega_tramo.descripcion END AS Ubicacion_Origen
-FROM  bodega INNER JOIN
-bodega_area ON bodega.IdBodega = bodega_area.IdBodega INNER JOIN
-bodega_sector ON bodega_area.IdArea = bodega_sector.IdArea INNER JOIN
-bodega_tramo ON bodega_sector.IdSector = bodega_tramo.IdSector INNER JOIN
-bodega_ubicacion ON bodega_tramo.IdTramo = bodega_ubicacion.IdTramo
-GO
 CREATE VIEW [dbo].[VW_Cambios_Ubicacion]
 AS
 SELECT        TOP (100) PERCENT dbo.trans_movimientos.IdBodegaOrigen, dbo.sis_tipo_tarea.Nombre AS TipoTarea, dbo.producto.codigo AS Código, dbo.producto.nombre AS Producto, dbo.trans_movimientos.cantidad as Cantidad, 
-                         dbo.unidad_medida.Nombre AS UMBas, dbo.trans_movimientos.peso AS Peso, dbo.trans_movimientos.lote AS Lote, dbo.trans_movimientos.fecha_vence AS Vence, dbo.producto_estado.nombre AS Estado, 
+                         dbo.unidad_medida.Nombre AS UMBas, dbo.trans_movimientos.peso AS Peso, dbo.trans_movimientos.lote AS Lote, dbo.trans_movimientos.lic_plate AS LP, dbo.trans_movimientos.fecha_vence AS Vence, dbo.producto_estado.nombre AS Estado, 
                          dbo.motivo_ubicacion.Nombre AS Motivo, dbo.propietarios.nombre_comercial AS Propietario, 
 CASE WHEN bodega_tramo.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(bodega_tramo.descripcion, 2, 
 iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 1, CHARINDEX('-', bodega_tramo.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), 
