@@ -713,7 +713,7 @@ bodega_tramo_1.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVA
 + ' - ' + 'Pos' + bodega_ubicacion_1.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion_1.IdUbicacion) 
 ELSE bodega_tramo_1.descripcion END AS Ubicacion_Destino,
 						 dbo.trans_movimientos.fecha as Fecha, dbo.trans_movimientos.IdPresentacion, dbo.producto_presentacion.nombre AS Presentacion, 
-                         dbo.producto_presentacion.factor AS Factor, trans_movimientos.IdProductoBodega
+                         dbo.producto_presentacion.factor AS Factor, trans_movimientos.IdProductoBodega, trans_movimientos.IdPropietarioBodega
 FROM            dbo.propietarios INNER JOIN
                          dbo.trans_movimientos INNER JOIN
                          dbo.sis_tipo_tarea ON dbo.trans_movimientos.IdTipoTarea = dbo.sis_tipo_tarea.IdTipoTarea INNER JOIN
@@ -733,3 +733,4 @@ FROM            dbo.propietarios INNER JOIN
                          dbo.trans_ubic_hh_enc ON dbo.motivo_ubicacion.IdMotivoUbicacion = dbo.trans_ubic_hh_enc.IdMotivoUbicacion ON dbo.trans_movimientos.IdTransaccion = dbo.trans_ubic_hh_enc.IdTareaUbicacionEnc
 WHERE        (dbo.sis_tipo_tarea.Nombre = 'UBIC')
 GO
+
