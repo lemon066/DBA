@@ -805,3 +805,4 @@ FROM            dbo.propietarios AS p LEFT OUTER JOIN
                          dbo.empresa AS e ON p.IdEmpresa = e.IdEmpresa
 GO
 
+alter table trans_re_enc add mostrar_cantidad_esperada bit default 1
