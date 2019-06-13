@@ -794,3 +794,5 @@ FROM            dbo.trans_movimientos INNER JOIN
                          dbo.trans_ubic_hh_enc ON dbo.motivo_ubicacion.IdMotivoUbicacion = dbo.trans_ubic_hh_enc.IdMotivoUbicacion ON dbo.trans_movimientos.IdTransaccion = dbo.trans_ubic_hh_enc.IdTareaUbicacionEnc
 WHERE        (dbo.sis_tipo_tarea.Nombre IN ('UBIC', 'CEST'))
 GO
+
+alter table propietarios add sistema bit default 0
