@@ -806,3 +806,31 @@ FROM            dbo.propietarios AS p LEFT OUTER JOIN
 GO
 
 alter table trans_re_enc add mostrar_cantidad_esperada bit default 1
+
+CREATE TABLE [dbo].[impresion_productos_barras](
+[IdProductoBarra] [int] NOT NULL,
+[codigo] [nvarchar](50) NULL,
+[nombre] [nvarchar](100) NULL,
+[codigo_barra] [nvarchar](100) NULL,
+[cantidad_impresiones] [int] NULL,
+[IdPresentacion] [int] NULL,
+[IdUnidadMedidaBasica] [int] NULL,
+[UnidadMedida] [nvarchar](50) NULL,
+[Presentacion] [nvarchar](50) NULL,
+[Camas_Por_Tarima] [int] NULL,
+[Cajas_Por_Cama] [int] NULL,
+[Cantidad_Presentacion] [float] NULL,
+[Factor] [float] NULL,
+[Lote] [nvarchar](50) NULL,
+[Fecha_Ingreso] [date] NULL,
+[Fecha_Vence] [date] NULL,
+[fecha_agr] [datetime] NULL,
+[user_agr] [nvarchar](50) NULL,
+[impreso] [bit] NULL,
+[activo] [bit] NULL,
+CONSTRAINT [PK_Impresion_productos_barras] PRIMARY KEY CLUSTERED 
+(
+[IdProductoBarra] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
