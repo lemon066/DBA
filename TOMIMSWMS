@@ -861,3 +861,9 @@ GO
 
 
 
+insert into menu_sistema values('7.8','Servicio de Impresión Principal','rpgServicioImpresiones',2,7,0)
+insert into menu_sistema values('7.8.1','Servicio de impresión','cmdPrintSvr',3,7.8,0)
+ 
+insert into menu_sistema_op values ('1.10',8,'Impresion Barras',2,1,12)
+insert into menu_rol_op values ('1.10',1,'Erik Calderón', '20190605','Erik Calderón','20190605',1,1)
+
