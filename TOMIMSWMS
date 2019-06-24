@@ -889,3 +889,4 @@ GROUP BY pr.nombre_comercial, p.nombre, pp.nombre, pe1.nombre, pe2.nombre, u.Nom
 m.IdBodegaOrigen, m.fecha, p.IdProducto, p.codigo, p.codigo_barra, m.barra_pallet, m.fecha_vence, pp.IdPresentacion, pp.factor, m.cantidad / pp.factor
 GO
 
+alter table trans_re_det add lic_plate nvarchar(50)
