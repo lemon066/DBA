@@ -989,3 +989,18 @@ dbo.trans_ajuste_enc aje ON aje.idajusteenc = m.IdTransaccion
 WHERE M.IdTipoTarea = 17
 GO
 
+
+ALTER VIEW [dbo].[VW_Picking]
+AS
+SELECT        enc.IdPickingEnc AS Código, b.nombre AS Bodega, p.nombre_comercial AS Propietario, bu.descripcion AS [Ubicación Picking], enc.estado as Estado, 
+                         enc.detalle_operador AS [Detalle Operador], CONVERT(char(5), enc.hora_ini, 108) AS [Hora Inicial], CONVERT(char(5), enc.hora_fin, 108) AS [Hora Final], 
+                         enc.fecha_picking AS [Fecha Picking], enc.activo, enc.IdBodega
+FROM            dbo.trans_picking_enc AS enc INNER JOIN
+                         dbo.propietario_bodega AS pb ON enc.IdPropietarioBodega = pb.IdPropietarioBodega INNER JOIN
+                         dbo.propietarios AS p ON pb.IdPropietario = p.IdPropietario INNER JOIN
+                         dbo.bodega AS b ON enc.IdBodega = b.IdBodega INNER JOIN
+                         dbo.bodega_ubicacion AS bu ON enc.IdUbicacionPicking = bu.IdUbicacion
+GO
+
+
+
