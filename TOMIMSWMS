@@ -1004,3 +1004,29 @@ GO
 
 
 
+INSERT INTO [dbo].[producto_estado]
+           ([IdEstado]
+           ,[IdPropietario]
+           ,[nombre]
+           ,[IdUbicacionDefecto]
+           ,[utilizable]
+           ,[activo]
+           ,[user_agr]
+           ,[fec_agr]
+           ,[user_mod]
+           ,[fec_mod]
+           ,[dañado]
+           ,[codigo_bodega_erp])
+     VALUES
+           (5
+           ,1
+           ,'No Encontrado'
+           ,7479
+           ,0
+           ,1
+           ,1
+           ,getdate()
+           ,1
+           ,getdate()
+           ,0
+           ,'')
