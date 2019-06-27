@@ -1030,3 +1030,6 @@ INSERT INTO [dbo].[producto_estado]
            ,getdate()
            ,0
            ,'')
+
+alter table bodega add ubic_producto_ne int 
+alter table bodega add IdProductoEstadoNE int 
