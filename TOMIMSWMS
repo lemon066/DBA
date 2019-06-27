@@ -1032,4 +1032,6 @@ INSERT INTO [dbo].[producto_estado]
            ,'')
 
 alter table bodega add ubic_producto_ne int 
-alter table bodega add IdProductoEstadoNE int 
+alter table bodega add IdProductoEstadoNE int
+alter table bodega_ubicacion add ubicacion_ne bit default 0
+
