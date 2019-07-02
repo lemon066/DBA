@@ -1108,3 +1108,6 @@ dbo.producto_presentacion ON dbo.trans_re_det.IdPresentacion = dbo.producto_pres
 dbo.producto.IdProducto = dbo.producto_presentacion.IdProducto
 GO
 
+
+alter table i_nav_config_enc add rechazar_pedido_incompleto int default 1
+alter table i_nav_config_enc add despachar_existencia_parcial int default 0
