@@ -1113,3 +1113,5 @@ alter table i_nav_config_enc add rechazar_pedido_incompleto int default 1
 alter table i_nav_config_enc add despachar_existencia_parcial int default 0
 
 alter table i_nav_config_enc add convertir_decimales_a_umbas int default 0
+
+alter table i_nav_ped_compra_enc add Internal_Transfer_Document_No nvarchar(50)
