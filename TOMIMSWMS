@@ -1135,3 +1135,6 @@ FROM            dbo.trans_picking_ubic INNER JOIN
                          dbo.producto_presentacion AS pp ON det.IdPresentacion = pp.IdPresentacion
 GROUP BY enc.IdPedidoEnc, enc.referencia, det.IdPedidoDet, p.codigo, p.nombre, pp.nombre, u.Nombre, e.nombre, det.Cantidad, enc.Fecha_Pedido, p.IdProducto, enc.IdPickingEnc, enc.estado, enc.IdBodega
 GO
+
+DROP INDEX [NonClusteredIndex-20181122-121853] ON dbo.i_nav_barras_pallet
+
