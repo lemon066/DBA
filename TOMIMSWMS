@@ -1119,3 +1119,5 @@ alter table i_nav_ped_compra_enc add Internal_Transfer_Document_No nvarchar(50)
 alter table I_nav_config_enc add generar_pedido_ingreso_bodega_destino bit default 0
 
 alter table i_nav_ped_traslado_enc add Receipt_Document_Reference nvarchar(50)
+
+alter table trans_pe_enc add Referencia_Documento_Ingreso_Bodega_Destino nvarchar(50)
