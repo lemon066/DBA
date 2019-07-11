@@ -1115,3 +1115,5 @@ alter table i_nav_config_enc add despachar_existencia_parcial int default 0
 alter table i_nav_config_enc add convertir_decimales_a_umbas int default 0
 
 alter table i_nav_ped_compra_enc add Internal_Transfer_Document_No nvarchar(50)
+
+alter table I_nav_config_enc add generar_pedido_ingreso_bodega_destino bit default 0
