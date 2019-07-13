@@ -1139,12 +1139,14 @@ GO
 DROP INDEX [NonClusteredIndex-20181122-121853] ON dbo.i_nav_barras_pallet
 
 
-dStockTransito] [int] NOT NULL,
+CREATE TABLE [dbo].[stock_transito](
+	[IdStockTransito] [int] NOT NULL,
 	[IdEmpresa] [int] NULL,
 	[IdBodegaOrigen] [int] NULL,
 	[IdBodegaDestino] [int] NULL,
 	[IdStock] [int] NULL,
-	[IdProductoBodega] [int] NULL,
+	[IdProductoBodegaDestino] [int] NULL,
+	[IdProductoBodegaOrigen] [int] NULL,
 	[IdProductoEstado] [int] NULL,
 	[IdPresentacion] [int] NULL,
 	[IdUnidadMedida] [int] NULL,
@@ -1174,6 +1176,5 @@ dStockTransito] [int] NOT NULL,
 GO
 
 ALTER TABLE [dbo].[stock_transito] ADD  CONSTRAINT [DF_stock_transito_Fecha_Agregado]  DEFAULT (getdate()) FOR [Fecha_Agregado]
-GO
-
+GO	
 	
