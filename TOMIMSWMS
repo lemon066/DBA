@@ -1138,3 +1138,42 @@ GO
 
 DROP INDEX [NonClusteredIndex-20181122-121853] ON dbo.i_nav_barras_pallet
 
+
+dStockTransito] [int] NOT NULL,
+	[IdEmpresa] [int] NULL,
+	[IdBodegaOrigen] [int] NULL,
+	[IdBodegaDestino] [int] NULL,
+	[IdStock] [int] NULL,
+	[IdProductoBodega] [int] NULL,
+	[IdProductoEstado] [int] NULL,
+	[IdPresentacion] [int] NULL,
+	[IdUnidadMedida] [int] NULL,
+	[IdUbicacion] [int] NULL,
+	[IdRecepcionEnc] [int] NULL,
+	[IdRecepcionDet] [int] NULL,
+	[IdPedidoEnc] [int] NULL,
+	[IdPickingEnc] [int] NULL,
+	[IdDespachoEnc] [int] NULL,
+	[IdPickingUbic] [int] NULL,
+	[IdPedidoDet] [int] NULL,
+	[Lote] [nvarchar](50) NULL,
+	[Lic_Plate] [nvarchar](50) NULL,
+	[Cantidad] [float] NULL,
+	[Fecha_Ingreso] [date] NULL,
+	[Fecha_Vence] [date] NULL,
+	[Fecha_Manufactura] [date] NULL,
+	[Cantidad_Recibida] [float] NULL,
+	[Fecha_Agregado] [date] NULL,
+	[IdOrdenCompraEnc_BodDest] [int] NULL,
+	[IdRecepcionEnc_BodDest] [int] NULL,
+ CONSTRAINT [PK_stock_transito] PRIMARY KEY CLUSTERED 
+(
+	[IdStockTransito] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[stock_transito] ADD  CONSTRAINT [DF_stock_transito_Fecha_Agregado]  DEFAULT (getdate()) FOR [Fecha_Agregado]
+GO
+
+	
