@@ -1178,3 +1178,5 @@ GO
 ALTER TABLE [dbo].[stock_transito] ADD  CONSTRAINT [DF_stock_transito_Fecha_Agregado]  DEFAULT (getdate()) FOR [Fecha_Agregado]
 GO	
 	
+insert into trans_oc_ti values (4,'Transferencia WMS',0,1,GETDATE(),1,getdate(),1)
+
