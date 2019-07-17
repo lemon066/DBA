@@ -1203,3 +1203,7 @@ bodega_area ON b.IdBodega = bodega_area.IdBodega INNER JOIN
 bodega_sector ON bodega_area.IdArea = bodega_sector.IdArea INNER JOIN
 bodega_tramo ON bodega_sector.IdSector = bodega_tramo.IdSector INNER JOIN
 bodega_ubicacion ON p.IdUbicacionPicking = bodega_ubicacion.IdUbicacion AND bodega_tramo.IdTramo = bodega_ubicacion.IdTramo
+
+alter table trans_picking_ubic add lic_plate_reemplazo nvarchar(50)
+alter table trans_picking_ubic add IdUbicacion_reemplazo int
+alter table trans_picking_ubic add IdStock_reemplazo int
