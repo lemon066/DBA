@@ -90,6 +90,49 @@ GO
 ALTER TABLE [dbo].[turno] CHECK CONSTRAINT [FK_turno_empresa]
 GO
 
+USE [ROUNDROBIN]
+GO
+
+/****** Object:  Table [dbo].[objetivo]    Script Date: 24-Jul-19 9:58:52 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[objetivo](
+	[IdObjetivo] [int] NOT NULL,
+	[IdPais] [int] NULL,
+	[IdEmpresa] [int] NULL,
+	[nombre] [nvarchar](50) null,
+	[descripcion] [nvarchar](50) null,
+	[calle] [nvarchar](50) null,
+	[avenida] [nvarchar](50) null,
+	[direccion] [nvarchar](50) null,
+	[ciudad] [nvarchar](50) null,
+	[longitud] [float] null,
+	[latitud] [float] null,
+	[logo] [image] null,
+	[contacto] [nvarchar](50) null,
+	[telefono] [nvarchar](50) null,
+	[celular] [nvarchar](50) null,
+	[codigo] [nvarchar](50) null,
+	[clave] [nvarchar](50) null,
+	[user_agr] [nvarchar](25) null,
+	[fec_agr] [datetime] null,
+	[user_mod] [nvarchar](25) null,
+	[fec_mod] [datetime] null,
+	[activo] [bit] null,
+ CONSTRAINT [PK_lugar] PRIMARY KEY CLUSTERED 
+(
+	[IdObjetivo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[objetivo] ADD  CONSTRAINT [DF_lugar_activo]  DEFAULT ((1)) FOR [activo]
+GO
+
 
 CREATE TABLE [dbo].[operador](
 	[IdOperador] [int] NOT NULL,
