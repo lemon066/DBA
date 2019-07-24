@@ -205,3 +205,28 @@ ALTER TABLE [dbo].[objetivo_ronda]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_rond
 REFERENCES [dbo].[objetivo] ([IdObjetivo])
 GO
 
+CREATE TABLE [dbo].[objetivo_punto_control](
+	[IdPunto] [int] NOT NULL,
+	[IdObjetivo] [int] NULL,
+	[codigo_barra] [nvarchar](25) NULL,	
+	[latitud] [float] NULL,
+	[longitud] [float] NULL,
+	[activo] [bit] NULL,
+	[user_agr] [nvarchar](25) NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [nvarchar](25) NULL,
+	[fec_mod] [datetime] NULL,
+ CONSTRAINT [PK_objetivo_punto_control] PRIMARY KEY CLUSTERED 
+(
+	[IdPunto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[objetivo_punto_control] ADD  CONSTRAINT [DF_objetivo_punto_control_activo]  DEFAULT ((1)) FOR [activo]
+GO
+
+ALTER TABLE [dbo].[objetivo_punto_control]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_punto_control] FOREIGN KEY([IdObjetivo])
+REFERENCES [dbo].[objetivo] ([IdObjetivo])
+GO
+
