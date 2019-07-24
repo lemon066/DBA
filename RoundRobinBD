@@ -1,11 +1,21 @@
+USE [ROUNDROBIN]
+GO
+/****** Object:  Table [dbo].[empresa]    Script Date: 24-Jul-19 10:42:18 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [dbo].[empresa](
 	[IdEmpresa] [int] NOT NULL,
+	[IdPais] [int] NULL,
 	[nombre] [nvarchar](50) NULL,
 	[direccion] [nvarchar](250) NULL,
 	[telefono] [nvarchar](50) NULL,
+	[celular] [nvarchar](50) NULL,
 	[correo] [nvarchar](50) NULL,
 	[razon_social] [nvarchar](50) NULL,
 	[representante] [nvarchar](50) NULL,
+	[contacto] [nvarchar](50) NULL,
 	[NIT] [nvarchar](50) NULL,
 	[activo] [bit] NULL,
 	[user_agr] [nvarchar](25) NULL,
@@ -14,25 +24,231 @@ CREATE TABLE [dbo].[empresa](
 	[fec_mod] [datetime] NULL,
 	[imagen] [image] NULL,
 	[codigo] [nvarchar](50) NULL,
-	[clave] [nvarchar](50) NULL,	
+	[clave] [nvarchar](50) NULL,
 	[duracionclave] [int] NULL,
 	[duracionclavetemporal] [int] NULL,
 	[codigo_automatico] [bit] NULL,
-	[politica_contraseñas] [bit] NULL,	
+	[politica_contraseñas] [bit] NULL,
  CONSTRAINT [PK_empresa] PRIMARY KEY CLUSTERED 
 (
 	[IdEmpresa] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-
-ALTER TABLE [dbo].[empresa] ADD  CONSTRAINT [DF_empresa_activo]  DEFAULT ((1)) FOR [activo]
+/****** Object:  Table [dbo].[objetivo]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
 GO
-
-ALTER TABLE [dbo].[empresa] ADD  DEFAULT ((0)) FOR [politica_contraseñas]
+SET QUOTED_IDENTIFIER ON
 GO
-
-
+CREATE TABLE [dbo].[objetivo](
+	[IdObjetivo] [int] NOT NULL,
+	[IdEmpresa] [int] NOT NULL,
+	[IdPais] [int] NULL,
+	[nombre] [nvarchar](50) NULL,
+	[descripcion] [nvarchar](50) NULL,
+	[calle] [nvarchar](50) NULL,
+	[avenida] [nvarchar](50) NULL,
+	[direccion] [nvarchar](50) NULL,
+	[ciudad] [nvarchar](50) NULL,
+	[longitud] [float] NULL,
+	[latitud] [float] NULL,
+	[logo] [image] NULL,
+	[contacto] [nvarchar](50) NULL,
+	[telefono] [nvarchar](50) NULL,
+	[celular] [nvarchar](50) NULL,
+	[codigo] [nvarchar](50) NULL,
+	[clave] [nvarchar](50) NULL,
+	[user_agr] [nvarchar](25) NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [nvarchar](25) NULL,
+	[fec_mod] [datetime] NULL,
+	[activo] [bit] NULL,
+ CONSTRAINT [PK_lugar] PRIMARY KEY CLUSTERED 
+(
+	[IdObjetivo] ASC,
+	[IdEmpresa] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[objetivo_control]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[objetivo_control](
+	[IdObjetivoControl] [int] NOT NULL,
+	[IdEmpresa] [int] NOT NULL,
+	[IdObjetivo] [int] NULL,
+	[IdPunto] [int] NOT NULL,
+	[IdRonda] [int] NULL,
+	[IdTurno] [int] NULL,
+	[IdOperador] [int] NULL,
+	[latitud_punto] [float] NULL,
+	[longitud_punto] [float] NULL,
+	[latitud_operador] [float] NULL,
+	[longitud_operador] [float] NULL,
+	[fecha_control] [datetime] NULL,
+	[hora_control] [datetime] NULL,
+	[activo] [bit] NULL,
+	[user_agr] [nvarchar](25) NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [nvarchar](25) NULL,
+	[fec_mod] [datetime] NULL,
+ CONSTRAINT [PK_objetivo_control] PRIMARY KEY CLUSTERED 
+(
+	[IdObjetivoControl] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[objetivo_horario_cobertura]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[objetivo_horario_cobertura](
+	[IdHorarioCoberturaObjetivo] [int] NOT NULL,
+	[IdObjetivo] [int] NULL,
+	[IdEmpresa] [int] NULL,
+	[dia] [int] NULL,
+	[hora_inicio] [datetime] NULL,
+	[hora_fin] [datetime] NULL,
+	[minimo_min_hora_ingreso] [int] NULL,
+	[maximo_min_hora_ingreso] [int] NULL,
+	[minimo_min_hora_salida] [int] NULL,
+	[maximo_min_hora_salida] [int] NULL,
+	[tiempo_retraso_permitido] [int] NULL,
+	[horas_extras] [bit] NULL,
+	[user_agr] [int] NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [int] NULL,
+	[fec_mod] [datetime] NULL,
+	[fec_baja] [datetime] NULL,
+	[activo] [bit] NULL,
+	[totalHorasPorDia] [float] NULL,
+ CONSTRAINT [PK_objetivo_horario_cobertura] PRIMARY KEY CLUSTERED 
+(
+	[IdHorarioCoberturaObjetivo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[objetivo_punto_control]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[objetivo_punto_control](
+	[IdPunto] [int] NOT NULL,
+	[IdObjetivo] [int] NOT NULL,
+	[IdEmpresa] [int] NOT NULL,
+	[codigo_barra] [nvarchar](25) NULL,
+	[latitud] [float] NULL,
+	[longitud] [float] NULL,
+	[activo] [bit] NULL,
+	[user_agr] [nvarchar](25) NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [nvarchar](25) NULL,
+	[fec_mod] [datetime] NULL,
+ CONSTRAINT [PK_objetivo_punto_control_1] PRIMARY KEY CLUSTERED 
+(
+	[IdPunto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[objetivo_ronda]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[objetivo_ronda](
+	[IdRonda] [int] NOT NULL,
+	[IdObjetivo] [int] NOT NULL,
+	[IdEmpresa] [int] NOT NULL,
+	[hora_inicio] [datetime] NULL,
+	[hora_fin] [datetime] NULL,
+	[frecuencia_minutos] [float] NULL,
+	[activo] [bit] NULL,
+	[user_agr] [nvarchar](25) NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [nvarchar](25) NULL,
+	[fec_mod] [datetime] NULL,
+ CONSTRAINT [PK_objetivo_ronda_1] PRIMARY KEY CLUSTERED 
+(
+	[IdRonda] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[operador]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[operador](
+	[IdOperador] [int] NOT NULL,
+	[IdEmpresa] [int] NULL,
+	[IdRolOperador] [int] NULL,
+	[nombres] [nvarchar](100) NULL,
+	[apellidos] [nvarchar](100) NULL,
+	[direccion] [nvarchar](50) NULL,
+	[telefono] [nvarchar](50) NULL,
+	[codigo] [nvarchar](25) NULL,
+	[clave] [nvarchar](25) NULL,
+	[activo] [bit] NULL,
+	[user_agr] [nvarchar](25) NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [nvarchar](25) NULL,
+	[fec_mod] [datetime] NULL,
+	[costo_hora] [float] NULL,
+	[usa_hh] [bit] NULL,
+	[foto] [image] NULL,
+ CONSTRAINT [PK_operador_1] PRIMARY KEY CLUSTERED 
+(
+	[IdOperador] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[pais]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[pais](
+	[IdPais] [int] NOT NULL,
+	[ISONUM] [int] NULL,
+	[ISO2] [nvarchar](50) NULL,
+	[ISO3] [nvarchar](50) NULL,
+	[NOMBRE] [nvarchar](50) NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_pais] PRIMARY KEY CLUSTERED 
+(
+	[IdPais] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[turno]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[turno](
+	[IdTurno] [int] NOT NULL,
+	[IdEmpresa] [int] NOT NULL,
+	[nombre] [nvarchar](50) NOT NULL,
+	[activo] [bit] NOT NULL,
+	[user_agr] [nvarchar](25) NOT NULL,
+	[fec_agr] [datetime] NOT NULL,
+	[user_mod] [nvarchar](25) NOT NULL,
+	[fec_mod] [datetime] NOT NULL,
+ CONSTRAINT [PK_turno] PRIMARY KEY CLUSTERED 
+(
+	[IdTurno] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[usuario]    Script Date: 24-Jul-19 10:42:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [dbo].[usuario](
 	[IdUsuario] [int] NOT NULL,
 	[IdEmpresa] [int] NULL,
@@ -59,174 +275,82 @@ CREATE TABLE [dbo].[usuario](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-
-ALTER TABLE [dbo].[usuario]  WITH CHECK ADD  CONSTRAINT [FK_usuario_empresa] FOREIGN KEY([IdEmpresa])
-REFERENCES [dbo].[empresa] ([IdEmpresa])
+ALTER TABLE [dbo].[empresa] ADD  CONSTRAINT [DF_empresa_activo]  DEFAULT ((1)) FOR [activo]
 GO
-
-ALTER TABLE [dbo].[usuario] CHECK CONSTRAINT [FK_usuario_empresa]
+ALTER TABLE [dbo].[empresa] ADD  CONSTRAINT [DF__empresa__politic__38996AB5]  DEFAULT ((0)) FOR [politica_contraseñas]
 GO
-
-CREATE TABLE [dbo].[turno](
-	[IdTurno] [int] NOT NULL,
-	[IdEmpresa] [int] NOT NULL,
-	[nombre] [nvarchar](50) NOT NULL,
-	[activo] [bit] NOT NULL,
-	[user_agr] [nvarchar](25) NOT NULL,
-	[fec_agr] [datetime] NOT NULL,
-	[user_mod] [nvarchar](25) NOT NULL,
-	[fec_mod] [datetime] NOT NULL,
- CONSTRAINT [PK_turno] PRIMARY KEY CLUSTERED 
-(
-	[IdTurno] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[turno]  WITH CHECK ADD  CONSTRAINT [FK_turno_empresa] FOREIGN KEY([IdEmpresa])
-REFERENCES [dbo].[Empresa] ([IdEmpresa])
-GO
-
-ALTER TABLE [dbo].[turno] CHECK CONSTRAINT [FK_turno_empresa]
-GO
-
-USE [ROUNDROBIN]
-GO
-
-/****** Object:  Table [dbo].[objetivo]    Script Date: 24-Jul-19 9:58:52 AM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[objetivo](
-	[IdObjetivo] [int] NOT NULL,
-	[IdPais] [int] NULL,
-	[IdEmpresa] [int] NULL,
-	[nombre] [nvarchar](50) null,
-	[descripcion] [nvarchar](50) null,
-	[calle] [nvarchar](50) null,
-	[avenida] [nvarchar](50) null,
-	[direccion] [nvarchar](50) null,
-	[ciudad] [nvarchar](50) null,
-	[longitud] [float] null,
-	[latitud] [float] null,
-	[logo] [image] null,
-	[contacto] [nvarchar](50) null,
-	[telefono] [nvarchar](50) null,
-	[celular] [nvarchar](50) null,
-	[codigo] [nvarchar](50) null,
-	[clave] [nvarchar](50) null,
-	[user_agr] [nvarchar](25) null,
-	[fec_agr] [datetime] null,
-	[user_mod] [nvarchar](25) null,
-	[fec_mod] [datetime] null,
-	[activo] [bit] null,
- CONSTRAINT [PK_lugar] PRIMARY KEY CLUSTERED 
-(
-	[IdObjetivo] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-
 ALTER TABLE [dbo].[objetivo] ADD  CONSTRAINT [DF_lugar_activo]  DEFAULT ((1)) FOR [activo]
 GO
-
-
-CREATE TABLE [dbo].[operador](
-	[IdOperador] [int] NOT NULL,
-	[IdEmpresa] [int] NULL,
-	[IdRolOperador] [int] NULL,	
-	[nombres] [nvarchar](100) NULL,
-	[apellidos] [nvarchar](100) NULL,
-	[direccion] [nvarchar](50) NULL,
-	[telefono] [nvarchar](50) NULL,
-	[codigo] [nvarchar](25) NULL,
-	[clave] [nvarchar](25) NULL,
-	[activo] [bit] NULL,
-	[user_agr] [nvarchar](25) NULL,
-	[fec_agr] [datetime] NULL,
-	[user_mod] [nvarchar](25) NULL,
-	[fec_mod] [datetime] NULL,
-	[costo_hora] [float] NULL,
-	[usa_hh] [bit] NULL,
-	[foto] [image] NULL,
- CONSTRAINT [PK_operador_1] PRIMARY KEY CLUSTERED 
-(
-	[IdOperador] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+ALTER TABLE [dbo].[objetivo_punto_control] ADD  CONSTRAINT [DF_objetivo_punto_control_activo]  DEFAULT ((1)) FOR [activo]
 GO
-
+ALTER TABLE [dbo].[objetivo_ronda] ADD  CONSTRAINT [DF_objetivo_ronda_activo]  DEFAULT ((1)) FOR [activo]
+GO
 ALTER TABLE [dbo].[operador] ADD  CONSTRAINT [DF_operador_activo]  DEFAULT ((1)) FOR [activo]
 GO
-
+ALTER TABLE [dbo].[pais] ADD  DEFAULT ((1)) FOR [Activo]
+GO
+ALTER TABLE [dbo].[empresa]  WITH CHECK ADD  CONSTRAINT [FK_empresa_pais] FOREIGN KEY([IdPais])
+REFERENCES [dbo].[pais] ([IdPais])
+GO
+ALTER TABLE [dbo].[empresa] CHECK CONSTRAINT [FK_empresa_pais]
+GO
+ALTER TABLE [dbo].[objetivo]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_empresa] FOREIGN KEY([IdEmpresa])
+REFERENCES [dbo].[empresa] ([IdEmpresa])
+GO
+ALTER TABLE [dbo].[objetivo] CHECK CONSTRAINT [FK_objetivo_empresa]
+GO
+ALTER TABLE [dbo].[objetivo]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_pais] FOREIGN KEY([IdPais])
+REFERENCES [dbo].[pais] ([IdPais])
+GO
+ALTER TABLE [dbo].[objetivo] CHECK CONSTRAINT [FK_objetivo_pais]
+GO
+ALTER TABLE [dbo].[objetivo_control]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_control_objetivo] FOREIGN KEY([IdObjetivo], [IdEmpresa])
+REFERENCES [dbo].[objetivo] ([IdObjetivo], [IdEmpresa])
+GO
+ALTER TABLE [dbo].[objetivo_control] CHECK CONSTRAINT [FK_objetivo_control_objetivo]
+GO
+ALTER TABLE [dbo].[objetivo_control]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_control_objetivo_punto_control] FOREIGN KEY([IdPunto])
+REFERENCES [dbo].[objetivo_punto_control] ([IdPunto])
+GO
+ALTER TABLE [dbo].[objetivo_control] CHECK CONSTRAINT [FK_objetivo_control_objetivo_punto_control]
+GO
+ALTER TABLE [dbo].[objetivo_control]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_control_operador] FOREIGN KEY([IdOperador])
+REFERENCES [dbo].[operador] ([IdOperador])
+GO
+ALTER TABLE [dbo].[objetivo_control] CHECK CONSTRAINT [FK_objetivo_control_operador]
+GO
+ALTER TABLE [dbo].[objetivo_control]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_control_turno] FOREIGN KEY([IdTurno])
+REFERENCES [dbo].[turno] ([IdTurno])
+GO
+ALTER TABLE [dbo].[objetivo_control] CHECK CONSTRAINT [FK_objetivo_control_turno]
+GO
+ALTER TABLE [dbo].[objetivo_horario_cobertura]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_horario_cobertura_objetivo] FOREIGN KEY([IdObjetivo], [IdEmpresa])
+REFERENCES [dbo].[objetivo] ([IdObjetivo], [IdEmpresa])
+GO
+ALTER TABLE [dbo].[objetivo_horario_cobertura] CHECK CONSTRAINT [FK_objetivo_horario_cobertura_objetivo]
+GO
+ALTER TABLE [dbo].[objetivo_punto_control]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_punto_control_objetivo] FOREIGN KEY([IdObjetivo], [IdEmpresa])
+REFERENCES [dbo].[objetivo] ([IdObjetivo], [IdEmpresa])
+GO
+ALTER TABLE [dbo].[objetivo_punto_control] CHECK CONSTRAINT [FK_objetivo_punto_control_objetivo]
+GO
+ALTER TABLE [dbo].[objetivo_ronda]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_ronda_objetivo] FOREIGN KEY([IdObjetivo], [IdEmpresa])
+REFERENCES [dbo].[objetivo] ([IdObjetivo], [IdEmpresa])
+GO
+ALTER TABLE [dbo].[objetivo_ronda] CHECK CONSTRAINT [FK_objetivo_ronda_objetivo]
+GO
 ALTER TABLE [dbo].[operador]  WITH CHECK ADD  CONSTRAINT [FK_operador_empresa] FOREIGN KEY([IdEmpresa])
 REFERENCES [dbo].[empresa] ([IdEmpresa])
 GO
-
 ALTER TABLE [dbo].[operador] CHECK CONSTRAINT [FK_operador_empresa]
 GO
-
-
-USE [ROUNDROBIN]
+ALTER TABLE [dbo].[turno]  WITH CHECK ADD  CONSTRAINT [FK_turno_empresa] FOREIGN KEY([IdEmpresa])
+REFERENCES [dbo].[empresa] ([IdEmpresa])
 GO
-
-/****** Object:  Table [dbo].[objetivo_ronda]    Script Date: 24-Jul-19 10:05:52 AM ******/
-SET ANSI_NULLS ON
+ALTER TABLE [dbo].[turno] CHECK CONSTRAINT [FK_turno_empresa]
 GO
-
-SET QUOTED_IDENTIFIER ON
+ALTER TABLE [dbo].[usuario]  WITH CHECK ADD  CONSTRAINT [FK_usuario_empresa] FOREIGN KEY([IdEmpresa])
+REFERENCES [dbo].[empresa] ([IdEmpresa])
 GO
-
-CREATE TABLE [dbo].[objetivo_ronda](
-	[IdRonda] [int] NOT NULL,
-	[IdObjetivo] [int] NULL,
-	[hora_inicio] [datetime] NULL,
-	[hora_fin] [datetime] NULL,
-	[frecuencia_minutos] [float] NULL,
-	[activo] [bit] NULL,
-	[user_agr] [nvarchar](25) NULL,
-	[fec_agr] [datetime] NULL,
-	[user_mod] [nvarchar](25) NULL,
-	[fec_mod] [datetime] NULL,
- CONSTRAINT [PK_objetivo_ronda] PRIMARY KEY CLUSTERED 
-(
-	[IdRonda] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+ALTER TABLE [dbo].[usuario] CHECK CONSTRAINT [FK_usuario_empresa]
 GO
-
-ALTER TABLE [dbo].[objetivo_ronda] ADD  CONSTRAINT [DF_objetivo_ronda_activo]  DEFAULT ((1)) FOR [activo]
-GO
-
-ALTER TABLE [dbo].[objetivo_ronda]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_ronda] FOREIGN KEY([IdObjetivo])
-REFERENCES [dbo].[objetivo] ([IdObjetivo])
-GO
-
-CREATE TABLE [dbo].[objetivo_punto_control](
-	[IdPunto] [int] NOT NULL,
-	[IdObjetivo] [int] NULL,
-	[codigo_barra] [nvarchar](25) NULL,	
-	[latitud] [float] NULL,
-	[longitud] [float] NULL,
-	[activo] [bit] NULL,
-	[user_agr] [nvarchar](25) NULL,
-	[fec_agr] [datetime] NULL,
-	[user_mod] [nvarchar](25) NULL,
-	[fec_mod] [datetime] NULL,
- CONSTRAINT [PK_objetivo_punto_control] PRIMARY KEY CLUSTERED 
-(
-	[IdPunto] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[objetivo_punto_control] ADD  CONSTRAINT [DF_objetivo_punto_control_activo]  DEFAULT ((1)) FOR [activo]
-GO
-
-ALTER TABLE [dbo].[objetivo_punto_control]  WITH CHECK ADD  CONSTRAINT [FK_objetivo_punto_control] FOREIGN KEY([IdObjetivo])
-REFERENCES [dbo].[objetivo] ([IdObjetivo])
-GO
-
