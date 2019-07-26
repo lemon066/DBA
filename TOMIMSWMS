@@ -1346,3 +1346,17 @@ GROUP BY dbo.trans_re_enc.IdRecepcionEnc, dbo.trans_re_det.IdRecepcionDet, dbo.t
                          dbo.trans_re_det.atributo_variante_1
 ORDER BY dbo.trans_re_enc.IdRecepcionEnc
 GO
+
+CREATE VIEW [dbo].[VW_Tareas_Activas_HH]
+AS
+SELECT        TOP (100) PERCENT t.IdTransaccion AS Correlativo, 
+                         CASE ta.Nombre WHEN 'RECE' THEN 'Recepción' WHEN 'UBIC' THEN 'Ubicación' WHEN 'CEST' THEN 'Cambio Estado' WHEN 'TRS' THEN 'Traslado' WHEN 'DES' THEN 'Despacho' WHEN 'INVE' THEN 'Inventario' WHEN 'AJU' THEN
+                          'Ajuste' WHEN 'PIK' THEN 'Picking' END AS Tarea, t.FechaInicio AS 'Inicio', GETDATE() AS 'Ult. Revisión', DATEDIFF(MINUTE, t.FechaInicio, GETDATE()) AS TTM, p.nombre_comercial AS Propietario, e.descripcion AS Estado, 
+                         t.IdTareahh
+FROM            dbo.tarea_hh AS t LEFT OUTER JOIN
+                         dbo.propietarios AS p ON t.IdPropietario = p.IdPropietario LEFT OUTER JOIN
+                         dbo.sis_estado_tarea_hh AS e ON t.IdEstado = e.IdEstado LEFT OUTER JOIN
+                         dbo.sis_tipo_tarea AS ta ON t.IdTipoTarea = ta.IdTipoTarea
+WHERE        (e.IdEstado <> 4) AND (e.IdEstado <> 3)
+ORDER BY 'Inicio' DESC
+GO
