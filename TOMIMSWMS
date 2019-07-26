@@ -1246,3 +1246,34 @@ GROUP BY dbo.propietarios.nombre_comercial, dbo.stock.IdStock, dbo.propietario_b
 HAVING        (DATEADD(day, ISNULL(dbo.producto.tolerancia, 0), GETDATE()) >= dbo.stock.fecha_vence)
 GO
 
+
+CREATE VIEW [dbo].[VW_ProductoEstadoUbicDefecto]
+AS
+SELECT u.IdUbicacion,  p.IdEstado, a.IdBodega, CASE WHEN t.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(t.descripcion, 2, 
+iif(CHARINDEX('-', t.descripcion, 0) < 0, 1, CHARINDEX('-', t.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), 
+u.indice_x), 2) + ' - ' + 'T' + SUBSTRING(t.descripcion, iif(CHARINDEX('-', t.descripcion, 0) < 0, 0, CHARINDEX('-', 
+t.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), u.nivel), 2) 
++ ' - ' + 'Pos' + u.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), u.IdUbicacion) 
+ELSE t.descripcion END AS Ubicacion_Origen
+FROM producto_estado AS p 
+INNER JOIN bodega_ubicacion AS u ON p.IdUbicacionDefecto = u.IdUbicacion 
+INNER JOIN bodega_tramo t ON t.IdTramo = u.IdTramo
+INNER JOIN bodega_sector s ON s.IdSector = t.IdSector
+INNER JOIN bodega_area a ON s.IdArea = a.IdArea
+GO
+
+
+CREATE VIEW [dbo].[VW_ProductoEstadoUbic]
+AS
+SELECT u.IdUbicacion, p.IdEstado, a.IdBodega, CASE WHEN t.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(t.descripcion, 2, 
+iif(CHARINDEX('-', t.descripcion, 0) < 0, 1, CHARINDEX('-', t.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), 
+u.indice_x), 2) + ' - ' + 'T' + SUBSTRING(t.descripcion, iif(CHARINDEX('-', t.descripcion, 0) < 0, 0, CHARINDEX('-', 
+t.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), u.nivel), 2) 
++ ' - ' + 'Pos' + u.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), u.IdUbicacion) 
+ELSE t.descripcion END AS Ubicacion_Origen
+FROM producto_estado_ubic AS p 
+INNER JOIN bodega_ubicacion AS u ON p.IdUbicacionDefecto = u.IdUbicacion
+INNER JOIN bodega_tramo t ON t.IdTramo = u.IdTramo
+INNER JOIN bodega_sector s ON s.IdSector = t.IdSector
+INNER JOIN bodega_area a ON s.IdArea = a.IdArea
+GO
