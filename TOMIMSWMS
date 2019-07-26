@@ -1359,3 +1359,17 @@ FROM            dbo.tarea_hh AS t LEFT OUTER JOIN
                          dbo.sis_tipo_tarea AS ta ON t.IdTipoTarea = ta.IdTipoTarea
 WHERE        (e.IdEstado <> 4) AND (e.IdEstado <> 3)
 ORDER BY 'Inicio' DESC
+
+CREATE TABLE [dbo].[tipo_tarea_tiempos](
+	[IdEmpresa] [int] NOT NULL,
+	[IdBodega] [int] NOT NULL,
+	[IdTipoTarea] [int] NOT NULL,
+	[TiempoMedioMinutos] [float] NULL,
+ CONSTRAINT [PK_tipo_tarea_tiempos] PRIMARY KEY CLUSTERED 
+(
+	[IdEmpresa] ASC,
+	[IdBodega] ASC,
+	[IdTipoTarea] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
