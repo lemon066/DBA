@@ -1373,3 +1373,7 @@ CREATE TABLE [dbo].[tipo_tarea_tiempos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+insert into menu_sistema_op values (1.11,13,'PalletId',2,1,13)
+insert into menu_rol_op values (1.11,1,'Erik Calderón',GETDATE(),'Erik Calderón',GETDATE(),1,1)
+insert into menu_rol_op values (1.11,2,'Erik Calderón',GETDATE(),'Erik Calderón',GETDATE(),1,1)
