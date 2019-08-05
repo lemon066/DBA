@@ -1435,3 +1435,9 @@ GO
 
 alter table producto_pallet add codigo_producto nvarchar(50)
 alter table impresora add mac_adress nvarchar(25)
+
+/*Flags para poder imprimir barras de pallet desde la HH si tiene presentación
+update producto_presentacion set permitir_paletizar = 1
+update producto_presentacion set genera_lp_auto= 1
+update producto_presentacion set imprime_barra= 1
+*/
