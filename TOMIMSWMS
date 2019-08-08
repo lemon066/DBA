@@ -1441,3 +1441,5 @@ update producto_presentacion set permitir_paletizar = 1
 update producto_presentacion set genera_lp_auto= 1
 update producto_presentacion set imprime_barra= 1
 */
+
+alter table impresora add IdBodega int	
