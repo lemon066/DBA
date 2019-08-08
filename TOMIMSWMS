@@ -1443,3 +1443,5 @@ update producto_presentacion set imprime_barra= 1
 */
 
 alter table impresora add IdBodega int	
+
+alter table i_nav_ped_traslado_det add Status int
