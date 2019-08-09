@@ -1446,12 +1446,17 @@ alter table impresora add IdBodega int
 
 alter table i_nav_ped_traslado_det add Status int
 
-
 CREATE VIEW [dbo].[VW_Producto_Estado_Ubic_Bodega]
 AS
 SELECT        dbo.producto_estado.IdEstado, dbo.producto_estado.IdPropietario, dbo.producto_estado.nombre, dbo.producto_estado.IdUbicacionDefecto, dbo.producto_estado.utilizable, dbo.producto_estado.activo, 
                          dbo.producto_estado.user_agr, dbo.producto_estado.fec_agr, dbo.producto_estado.user_mod, dbo.producto_estado.fec_mod, dbo.producto_estado.dañado, dbo.producto_estado.codigo_bodega_erp, 
-                         dbo.producto_estado.sistema, dbo.producto_estado_ubic.IdUbicacionDefecto AS IdUbicacionBodegaDefecto, dbo.bodega.IdBodega
+                         dbo.producto_estado.sistema, dbo.producto_estado_ubic.IdUbicacionDefecto AS IdUbicacionBodegaDefecto, dbo.bodega.IdBodega, 
+						CASE WHEN bodega_tramo.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(bodega_tramo.descripcion, 2, 
+						iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 1, CHARINDEX('-', bodega_tramo.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), 
+						bodega_ubicacion.indice_x), 2) + ' - ' + 'T' + SUBSTRING(bodega_tramo.descripcion, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 0, CHARINDEX('-', 
+						bodega_tramo.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.nivel), 2) 
+						+ ' - ' + 'Pos' + bodega_ubicacion.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) 
+						ELSE bodega_tramo.descripcion END AS NombreUbic
 FROM            dbo.bodega_ubicacion INNER JOIN
                          dbo.producto_estado_ubic ON dbo.bodega_ubicacion.IdUbicacion = dbo.producto_estado_ubic.IdUbicacionDefecto INNER JOIN
                          dbo.bodega_tramo ON dbo.bodega_ubicacion.IdTramo = dbo.bodega_tramo.IdTramo INNER JOIN
@@ -1460,6 +1465,7 @@ FROM            dbo.bodega_ubicacion INNER JOIN
                          dbo.bodega ON dbo.bodega_area.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
                          dbo.producto_estado ON dbo.producto_estado_ubic.IdEstado = dbo.producto_estado.IdEstado
 GO
+
 
 
 ALTER VIEW [dbo].[VW_Stock_Resumen]
