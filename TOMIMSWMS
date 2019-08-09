@@ -1446,17 +1446,21 @@ alter table impresora add IdBodega int
 
 alter table i_nav_ped_traslado_det add Status int
 
+
 CREATE VIEW [dbo].[VW_Producto_Estado_Ubic_Bodega]
 AS
-SELECT        dbo.producto_estado.*, dbo.producto_estado_ubic.IdUbicacionDefecto AS IdUbicacionBodegaDefecto, dbo.bodega.IdBodega
-FROM            dbo.producto_estado INNER JOIN
-                         dbo.producto_estado_ubic ON dbo.producto_estado.IdEstado = dbo.producto_estado_ubic.IdEstado INNER JOIN
-                         dbo.bodega_ubicacion ON dbo.producto_estado_ubic.IdUbicacionDefecto = dbo.bodega_ubicacion.IdUbicacion INNER JOIN
+SELECT        dbo.producto_estado.IdEstado, dbo.producto_estado.IdPropietario, dbo.producto_estado.nombre, dbo.producto_estado.IdUbicacionDefecto, dbo.producto_estado.utilizable, dbo.producto_estado.activo, 
+                         dbo.producto_estado.user_agr, dbo.producto_estado.fec_agr, dbo.producto_estado.user_mod, dbo.producto_estado.fec_mod, dbo.producto_estado.dañado, dbo.producto_estado.codigo_bodega_erp, 
+                         dbo.producto_estado.sistema, dbo.producto_estado_ubic.IdUbicacionDefecto AS IdUbicacionBodegaDefecto, dbo.bodega.IdBodega
+FROM            dbo.bodega_ubicacion INNER JOIN
+                         dbo.producto_estado_ubic ON dbo.bodega_ubicacion.IdUbicacion = dbo.producto_estado_ubic.IdUbicacionDefecto INNER JOIN
                          dbo.bodega_tramo ON dbo.bodega_ubicacion.IdTramo = dbo.bodega_tramo.IdTramo INNER JOIN
                          dbo.bodega_sector ON dbo.bodega_tramo.IdSector = dbo.bodega_sector.IdSector INNER JOIN
                          dbo.bodega_area ON dbo.bodega_sector.IdArea = dbo.bodega_area.IdArea INNER JOIN
-                         dbo.bodega ON dbo.bodega_area.IdBodega = dbo.bodega.IdBodega
+                         dbo.bodega ON dbo.bodega_area.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
+                         dbo.producto_estado ON dbo.producto_estado_ubic.IdEstado = dbo.producto_estado.IdEstado
 GO
+
 
 ALTER VIEW [dbo].[VW_Stock_Resumen]
 AS
