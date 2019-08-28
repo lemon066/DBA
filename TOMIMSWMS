@@ -1626,3 +1626,5 @@ CONSTRAINT [PK_producto_kit_composicion] PRIMARY KEY CLUSTERED
 GO
 
 alter table producto_kit_composicion add IdBodega integer null
+
+alter table estructura_tramo add idarea int 
