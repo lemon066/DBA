@@ -1628,3 +1628,7 @@ GO
 alter table producto_kit_composicion add IdBodega integer null
 
 alter table estructura_tramo add idarea int 
+
+alter table estructura_ubicacion add idsector int 
+alter table estructura_ubicacion add idarea int 
+alter table estructura_ubicacion add idbodega int 
