@@ -1635,3 +1635,7 @@ alter table estructura_ubicacion add idbodega int
 
 alter table i_nav_transacciones_out add tipo_documento nvarchar(25)
 alter table i_nav_transacciones_out add observacion nvarchar(50)
+alter table i_nav_transacciones_out add empresa_transporte nvarchar(50)
+alter table i_nav_transacciones_out add piloto_transporte nvarchar(50)
+alter table i_nav_transacciones_out add contacto_recibe nvarchar(50)
+alter table i_nav_transacciones_out add contacto_entrega nvarchar(50)
