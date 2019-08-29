@@ -1713,3 +1713,25 @@ ALTER TABLE BODEGA_SECTOR DROP CONSTRAINT FK_bodega_sector_bodega_area
 
 	ALTER TABLE bodega_ubicacion
     ADD CONSTRAINT PK_BodegaUbicacionId PRIMARY KEY CLUSTERED (IdUbicacion, IdTramo, IdSector, IdArea, IdBodega);
+
+alter table bodega_ubicacion drop constraint PK_BodegaUbicacionId
+alter table bodega_tramo drop constraint PK_BodegaTramoId
+alter table bodega_sector drop constraint PK_BodegaSectorId
+alter table bodega_area drop constraint PK_BodegaAreaId
+
+alter table estructura_tramo add idarea int 
+alter table estructura_ubicacion add idsector int 
+alter table estructura_ubicacion add idarea int 
+alter table estructura_ubicacion add idbodega int 
+
+ALTER TABLE bodega_area
+ADD CONSTRAINT PK_BodegaAreaId PRIMARY KEY CLUSTERED (IdArea, IdBodega);
+
+ALTER TABLE bodega_sector
+ADD CONSTRAINT PK_BodegaSectorId PRIMARY KEY CLUSTERED (IdSector, IdBodega);
+
+ALTER TABLE bodega_tramo
+ADD CONSTRAINT PK_BodegaTramoId PRIMARY KEY CLUSTERED (IdTramo, IdBodega);
+
+ALTER TABLE bodega_ubicacion
+ADD CONSTRAINT PK_BodegaUbicacionId PRIMARY KEY CLUSTERED (IdUbicacion, IdBodega);
