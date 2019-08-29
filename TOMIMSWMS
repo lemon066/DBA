@@ -1634,3 +1634,4 @@ alter table estructura_ubicacion add idarea int
 alter table estructura_ubicacion add idbodega int 
 
 alter table i_nav_transacciones_out add tipo_documento nvarchar(25)
+alter table i_nav_transacciones_out add observacion nvarchar(50)
