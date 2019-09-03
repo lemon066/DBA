@@ -1640,3 +1640,5 @@ alter table i_nav_transacciones_out add piloto_transporte nvarchar(50)
 alter table i_nav_transacciones_out add contacto_recibe nvarchar(50)
 alter table i_nav_transacciones_out add contacto_entrega nvarchar(50)
 alter table i_nav_transacciones_out add marchamo_no nvarchar(50)
+
+alter table trans_pe_enc add sync_mi3 bit default 1
