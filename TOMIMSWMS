@@ -1735,3 +1735,14 @@ ADD CONSTRAINT PK_BodegaTramoId PRIMARY KEY CLUSTERED (IdTramo, IdBodega);
 
 ALTER TABLE bodega_ubicacion
 ADD CONSTRAINT PK_BodegaUbicacionId PRIMARY KEY CLUSTERED (IdUbicacion, IdBodega);
+
+BEGIN TRANSACTION
+	UPDATE bodega_ubicacion 
+	SET bodega_ubicacion.IdBodega = bodega_tramo.IdBodega,
+	bodega_ubicacion.IdArea = bodega_tramo.IdArea,
+	bodega_ubicacion.IdSector = bodega_tramo.IdSector,
+	bodega_ubicacion.IdTramo = bodega_tramo.IdTramo
+	FROM  dbo.bodega_ubicacion INNER JOIN
+	dbo.bodega_tramo ON dbo.bodega_ubicacion.IdTramo = dbo.bodega_tramo.IdTramo INNER JOIN
+	dbo.bodega_sector ON dbo.bodega_tramo.IdSector = dbo.bodega_sector.IdSector AND dbo.bodega_tramo.IdArea = dbo.bodega_sector.IdArea AND dbo.bodega_tramo.IdBodega = dbo.bodega_sector.IdBodega
+ROLLBACK TRANSACTION
