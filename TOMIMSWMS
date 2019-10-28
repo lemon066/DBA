@@ -1805,4 +1805,4 @@ GO
 
 //Alter para procesos con producto Kit. 
 alter table trans_pe_det add EsPadre bit
-alter table trans_pe_det add IdProductoBodegaPadre integer
+alter table trans_pe_det add IdPedidoDetPadre integer
