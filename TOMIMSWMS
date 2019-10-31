@@ -1862,3 +1862,23 @@ GROUP BY dbo.propietarios.nombre_comercial, dbo.propietarios.IdPropietario, dbo.
                          dbo.bodega_tramo.es_rack, dbo.bodega_tramo.descripcion, dbo.bodega_tramo.IdBodega
 GO
 
+alter table producto_estado_ubic add IdBodega integer 
+
+ALTER VIEW [dbo].[VW_ProductoEstadoUbicacion]
+AS
+SELECT        dbo.producto_estado_ubic.fec_agr, dbo.producto_estado_ubic.user_agr, dbo.producto_estado_ubic.fec_mod, dbo.producto_estado_ubic.user_mod, 
+                         dbo.producto_estado_ubic.activo, dbo.producto_estado.nombre AS Estado, 
+                         'T[' + dbo.bodega_tramo.descripcion + '] - C[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.indice_x), ''), 2) 
+                         + '] - N[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.nivel), ''), 2) 
+                         + ']' + ' - P[' + dbo.bodega_ubicacion.orientacion_pos + ']' + ' - #[' + CONVERT(NVARCHAR(25), dbo.bodega_ubicacion.IdUbicacion) + ']' AS Ubicacion, 
+                         dbo.producto_estado_ubic.IdEstado, dbo.producto_estado_ubic.IdProductoEstadUbic, dbo.producto_estado_ubic.IdUbicacionDefecto, dbo.bodega.IdBodega, 
+                         dbo.bodega.nombre AS Bodega
+FROM            dbo.producto_estado RIGHT OUTER JOIN
+                         dbo.bodega_tramo INNER JOIN
+                         dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo INNER JOIN
+                         dbo.bodega_sector ON dbo.bodega_tramo.IdSector = dbo.bodega_sector.IdSector INNER JOIN
+                         dbo.bodega_area ON dbo.bodega_sector.IdArea = dbo.bodega_area.IdArea INNER JOIN
+                         dbo.bodega ON dbo.bodega_area.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
+                         dbo.producto_estado_ubic ON dbo.bodega.IdBodega = dbo.producto_estado_ubic.IdBodega AND 
+                         dbo.bodega_ubicacion.IdUbicacion = dbo.producto_estado_ubic.IdUbicacionDefecto ON dbo.producto_estado.IdEstado = dbo.producto_estado_ubic.IdEstado
+GO
