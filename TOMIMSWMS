@@ -1902,3 +1902,91 @@ FROM            dbo.bodega_ubicacion INNER JOIN
                          dbo.bodega ON dbo.bodega_area.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
                          dbo.producto_estado ON dbo.producto_estado_ubic.IdEstado = dbo.producto_estado.IdEstado
 GO
+
+CREATE NONCLUSTERED INDEX NCL_PRODUCTO_20191104
+ON [dbo].[producto] ([IdPropietario])
+INCLUDE ([IdProducto],[codigo],[nombre])
+
+CREATE NONCLUSTERED INDEX NCL_PRODUCTO_BODEGA_20191104_EJC
+ON [dbo].[producto_bodega] ([IdProducto])
+INCLUDE ([IdProductoBodega])
+
+CREATE NONCLUSTERED INDEX NCL_BODEGA_UBICACION_20191104_EJC
+ON [dbo].[bodega_ubicacion] ([IdBodega])
+INCLUDE ([IdUbicacion],[descripcion])	
+
+
+ALTER VIEW [dbo].[VW_Stock_Res_Pedido]
+AS
+SELECT        p.codigo, p.nombre, pp.nombre AS presentacion, pe.nombre AS NomEstado, um.Nombre AS unidadmedida, pr.nombre_comercial AS propietario, 
+                         bu.descripcion AS bodegaubicacion, s.cantidad AS cantidadfisica, pp.factor, res.IdStockRes, res.IdTransaccion, res.Indicador, res.IdPedidoDet, res.IdStock, 
+                         res.IdPropietarioBodega, res.IdProductoBodega, res.IdUbicacion, res.estado, res.IdPresentacion, res.IdUnidadMedida, res.lote, res.lic_plate, res.serial, res.cantidad,
+                          res.peso, res.fecha_ingreso, res.fecha_vence, res.uds_lic_plate, res.ubicacion_ant, res.no_bulto, res.IdRecepcion, res.IdPicking, res.IdPedido, res.IdDespacho, 
+                         res.user_agr, res.fec_agr, res.user_mod, res.fec_mod, res.host, res.añada, res.fecha_manufactura, dbo.trans_pe_enc.referencia, 
+                         dbo.propietario_bodega.IdBodega
+FROM            dbo.stock_res AS res INNER JOIN
+                         dbo.producto_bodega AS pb ON pb.IdProductoBodega = res.IdProductoBodega INNER JOIN
+                         dbo.producto AS p ON pb.IdProducto = p.IdProducto INNER JOIN
+                         dbo.bodega_ubicacion AS bu ON res.IdUbicacion = bu.IdUbicacion INNER JOIN
+                         dbo.producto_estado AS pe ON res.IdProductoEstado = pe.IdEstado INNER JOIN
+                         dbo.unidad_medida AS um ON res.IdUnidadMedida = um.IdUnidadMedida INNER JOIN
+                         dbo.stock AS s ON res.IdStock = s.IdStock INNER JOIN
+                         dbo.propietario_bodega ON s.IdPropietarioBodega = dbo.propietario_bodega.IdPropietarioBodega AND 
+                         s.IdPropietarioBodega = dbo.propietario_bodega.IdPropietarioBodega INNER JOIN
+                         dbo.propietarios AS pr ON dbo.propietario_bodega.IdPropietario = pr.IdPropietario LEFT OUTER JOIN
+                         dbo.trans_pe_enc ON dbo.propietario_bodega.IdPropietarioBodega = dbo.trans_pe_enc.IdPropietarioBodega AND 
+                         res.IdPedido = dbo.trans_pe_enc.IdPedidoEnc LEFT OUTER JOIN
+                         dbo.producto_presentacion AS pp ON res.IdPresentacion = pp.IdPresentacion AND p.IdProducto = pp.IdProducto
+GO
+
+ALTER VIEW [dbo].[VW_Stock_Resumen]
+AS
+SELECT        dbo.producto_bodega.IdBodega, dbo.propietarios.IdPropietario, dbo.propietario_bodega.IdPropietarioBodega, dbo.producto.IdProducto, 
+                         dbo.producto_bodega.IdProductoBodega, dbo.stock.IdStock, dbo.stock.IdUbicacion_anterior, dbo.unidad_medida.IdUnidadMedida, dbo.stock.IdProductoEstado, 
+                         dbo.stock.IdPresentacion, dbo.stock.IdRecepcionEnc, dbo.propietarios.nombre_comercial AS Propietario, dbo.producto.codigo, dbo.producto.codigo_barra AS Barra, 
+                         dbo.producto.nombre, dbo.unidad_medida.Nombre AS UnidadMedida, dbo.producto_presentacion.nombre AS Presentacion, dbo.stock.lote, 
+                         dbo.stock.fecha_ingreso AS Ingreso, dbo.stock.fecha_vence AS Vence, dbo.stock.cantidad AS Cantidad_UMBas, SUM(ISNULL(dbo.stock_res.cantidad, 0)) 
+                         AS CantidadReservadaUmBas, dbo.stock.cantidad - ISNULL(SUM(dbo.stock_res.cantidad), 0) AS Disponible_UMBas, dbo.stock.peso, 
+                         ISNULL(dbo.stock.cantidad / dbo.producto_presentacion.factor, 0) AS Cantidad_Presentacion, dbo.producto_estado.nombre AS NomEstado, 
+                         'T[' + dbo.bodega_tramo.descripcion + '] - C[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.indice_x), ''), 2) 
+                         + '] - N[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.nivel), ''), 2) 
+                         + ']' + ' - P[' + dbo.bodega_ubicacion.orientacion_pos + ']' + ' - #[' + CONVERT(NVARCHAR(25), dbo.bodega_ubicacion.IdUbicacion) + ']' AS UbicacionCompleta, 
+                         dbo.producto_estado.dañado, dbo.producto_presentacion.factor, dbo.producto_estado.utilizable AS EstadoUtilizable, dbo.stock.IdUbicacion, dbo.stock.lic_plate, 
+                         dbo.stock.serial, dbo.stock.añada, dbo.producto.IdIndiceRotacion, dbo.producto_presentacion.alto, dbo.producto_presentacion.largo, 
+                         dbo.producto_presentacion.ancho, dbo.bodega_ubicacion.IdTramo, dbo.bodega_ubicacion.ancho AS Ancho_ubicacion, 
+                         dbo.bodega_ubicacion.largo AS Largo_ubicacion, dbo.bodega_ubicacion.alto AS Alto_ubicacion, dbo.indice_rotacion.Descripcion AS IndiceRotacion, 
+                         dbo.producto.existencia_min AS Existencia_min_umbas, dbo.producto.existencia_max AS Existencia_max_umbas, dbo.producto.costo, 
+                         dbo.producto_presentacion.MinimoExistencia AS Existencia_min_pres, dbo.producto_presentacion.MaximoExistencia AS Existencia_max_pres, 
+                         dbo.stock.atributo_variante_1, dbo.bodega_ubicacion.IdUbicacion AS IdUbicacionActual, dbo.bodega_ubicacion.nivel AS Ubicacion_Nivel, 
+                         dbo.bodega_ubicacion.indice_x AS Ubicacion_Indice_X, dbo.bodega_ubicacion.descripcion AS Ubicacion_Nombre, 
+                         dbo.bodega_tramo.descripcion AS Ubicacion_Tramo
+FROM            dbo.stock_res RIGHT OUTER JOIN
+                         dbo.indice_rotacion RIGHT OUTER JOIN
+                         dbo.producto_bodega INNER JOIN
+                         dbo.producto ON dbo.producto_bodega.IdProducto = dbo.producto.IdProducto INNER JOIN
+                         dbo.bodega ON dbo.producto_bodega.IdBodega = dbo.bodega.IdBodega INNER JOIN
+                         dbo.bodega_tramo INNER JOIN
+                         dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo ON dbo.bodega.IdBodega = dbo.bodega_ubicacion.IdBodega AND 
+                         dbo.bodega.IdBodega = dbo.bodega_tramo.IdBodega RIGHT OUTER JOIN
+                         dbo.unidad_medida INNER JOIN
+                         dbo.propietarios INNER JOIN
+                         dbo.stock INNER JOIN
+                         dbo.propietario_bodega ON dbo.stock.IdPropietarioBodega = dbo.propietario_bodega.IdPropietarioBodega ON 
+                         dbo.propietarios.IdPropietario = dbo.propietario_bodega.IdPropietario ON dbo.unidad_medida.IdUnidadMedida = dbo.stock.IdUnidadMedida ON 
+                         dbo.bodega.IdBodega = dbo.propietario_bodega.IdBodega AND dbo.producto_bodega.IdProductoBodega = dbo.stock.IdProductoBodega AND 
+                         dbo.bodega_ubicacion.IdUbicacion = dbo.stock.IdUbicacion ON dbo.indice_rotacion.IdIndiceRotacion = dbo.producto.IdIndiceRotacion ON 
+                         dbo.stock_res.IdStock = dbo.stock.IdStock LEFT OUTER JOIN
+                         dbo.producto_estado ON dbo.stock.IdProductoEstado = dbo.producto_estado.IdEstado LEFT OUTER JOIN
+                         dbo.producto_presentacion ON dbo.stock.IdPresentacion = dbo.producto_presentacion.IdPresentacion
+GROUP BY dbo.propietarios.nombre_comercial, dbo.propietarios.IdPropietario, dbo.stock.IdStock, dbo.bodega_ubicacion.IdUbicacion, dbo.stock.IdUbicacion_anterior, 
+                         dbo.propietario_bodega.IdPropietarioBodega, dbo.producto_bodega.IdProductoBodega, dbo.unidad_medida.IdUnidadMedida, dbo.unidad_medida.Nombre, 
+                         dbo.producto_presentacion.nombre, dbo.producto.IdProducto, dbo.producto.codigo, dbo.producto.nombre, dbo.stock.lote, dbo.stock.fecha_ingreso, dbo.stock.serial, 
+                         dbo.stock.añada, dbo.producto_bodega.IdBodega, dbo.stock.fecha_vence, dbo.stock.IdProductoEstado, dbo.producto_estado.nombre, 
+                         dbo.producto_estado.utilizable, dbo.producto_estado.dañado, dbo.stock.IdUbicacion, dbo.stock.IdPresentacion, dbo.stock.IdRecepcionEnc, dbo.stock.lic_plate, 
+                         dbo.stock.peso, dbo.producto.IdIndiceRotacion, dbo.producto_presentacion.alto, dbo.producto_presentacion.largo, dbo.producto_presentacion.ancho, 
+                         dbo.producto_presentacion.factor, dbo.bodega_ubicacion.IdTramo, dbo.bodega_ubicacion.ancho, dbo.bodega_ubicacion.largo, dbo.bodega_ubicacion.alto, 
+                         dbo.indice_rotacion.Descripcion, dbo.producto.existencia_min, dbo.producto.existencia_max, dbo.producto.codigo_barra, dbo.producto.costo, 
+                         dbo.producto_presentacion.MinimoExistencia, dbo.producto_presentacion.MaximoExistencia, dbo.stock.cantidad, 
+                         dbo.stock.cantidad / dbo.producto_presentacion.factor, dbo.stock.atributo_variante_1, dbo.bodega_ubicacion.nivel, dbo.bodega_ubicacion.indice_x, 
+                         dbo.bodega_ubicacion.descripcion, dbo.bodega_tramo.descripcion, dbo.bodega_ubicacion.orientacion_pos
+GO
