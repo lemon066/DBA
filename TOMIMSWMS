@@ -2127,3 +2127,5 @@ GO
 CREATE NONCLUSTERED INDEX NCLI_PRODUCTO_BODEGA_20191118_EJC
 ON [dbo].[producto_bodega] ([IdBodega])
 INCLUDE ([IdProducto])
+
+alter table impresion_productos_barras add IdImpresora int 
