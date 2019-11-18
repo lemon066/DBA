@@ -2123,9 +2123,27 @@ FROM            dbo.trans_picking_op INNER JOIN
 WHERE        (u.dañado_picking = 0) AND (u.dañado_verificacion = 0)
 GO
 
-
 CREATE NONCLUSTERED INDEX NCLI_PRODUCTO_BODEGA_20191118_EJC
 ON [dbo].[producto_bodega] ([IdBodega])
 INCLUDE ([IdProducto])
 
 alter table impresion_productos_barras add IdImpresora int 
+
+CREATE TABLE [dbo].[TempComparacionInventario](
+	[IdInventario] [int] NULL,
+	[IdProductoBodega] [int] NULL,
+	[IdProducto] [int] NULL,
+	[IdUnidadMedida] [int] NULL,
+	[Codigo] [nvarchar](150) NULL,
+	[Producto] [nvarchar](250) NULL,
+	[Cantidad_Stock] [float] NULL,
+	[Cantidad] [float] NULL,
+	[Peso_Stock] [float] NULL,
+	[Peso] [float] NULL,
+	[Entradas_Salidas] [float] NULL,
+	[Entradas] [float] NULL,
+	[Salidas] [float] NULL,
+	[Lote] [nvarchar](50) NULL,
+	[FechaVence] [date] NULL
+) ON [PRIMARY]
+GO
