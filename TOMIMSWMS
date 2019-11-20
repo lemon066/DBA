@@ -2161,3 +2161,24 @@ FROM            dbo.trans_picking_enc AS enc INNER JOIN
 GO
 
 
+
+ALTER VIEW [dbo].[VW_Tareas_Picking_HH]
+AS
+SELECT        p.IdPickingEnc, p.IdBodega, p.IdPropietarioBodega, p.IdUbicacionPicking, p.fecha_picking, p.hora_ini, p.hora_fin, p.estado, p.user_agr, p.fec_agr, p.user_mod, p.fec_mod, p.detalle_operador, p.activo, 
+                         b.nombre AS NombreBodega, pp.nombre_comercial, CASE WHEN bodega_tramo.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(bodega_tramo.descripcion, 2, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 1, 
+                         CHARINDEX('-', bodega_tramo.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.indice_x), 2) + ' - ' + 'T' + SUBSTRING(bodega_tramo.descripcion, iif(CHARINDEX('-', 
+                         bodega_tramo.descripcion, 0) < 0, 0, CHARINDEX('-', bodega_tramo.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.nivel), 2) 
+                         + ' - ' + 'Pos' + bodega_ubicacion.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) ELSE bodega_tramo.descripcion END AS NombreUbicacion, o.IdOperadorBodega
+FROM            trans_picking_enc AS p INNER JOIN
+                         trans_picking_op AS o ON p.IdPickingEnc = o.IdPickingEnc INNER JOIN
+                         bodega AS b ON p.IdBodega = b.IdBodega INNER JOIN
+                         propietario_bodega AS pb ON pb.IdPropietarioBodega = p.IdPropietarioBodega INNER JOIN
+                         propietarios AS pp ON pp.IdPropietario = pb.IdPropietario INNER JOIN
+                         bodega_area ON b.IdBodega = bodega_area.IdBodega INNER JOIN
+                         bodega_sector ON bodega_area.IdArea = bodega_sector.IdArea INNER JOIN
+                         bodega_tramo ON bodega_sector.IdSector = bodega_tramo.IdSector INNER JOIN
+                         bodega_ubicacion ON p.IdUbicacionPicking = bodega_ubicacion.IdUbicacion AND bodega_tramo.IdTramo = bodega_ubicacion.IdTramo
+AND bodega_tramo.IdBodega = bodega_ubicacion.IdBodega
+
+GO
+
