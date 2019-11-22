@@ -2295,3 +2295,6 @@ GROUP BY p.codigo, p.nombre, pp.nombre, pe.nombre, um.Nombre, pr.nombre_comercia
                          dbo.empresa_transporte_pilotos.no_carnet, dbo.empresa_transporte_pilotos.no_licencia, dbo.trans_despacho_enc.fecha
 GO
 
+CREATE NONCLUSTERED INDEX NCL_Producto_20191122_EJC
+ON [dbo].[producto] ([IdPropietario])
+INCLUDE ([codigo],[nombre])
