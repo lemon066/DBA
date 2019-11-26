@@ -1866,21 +1866,28 @@ alter table producto_estado_ubic add IdBodega integer
 
 ALTER VIEW [dbo].[VW_ProductoEstadoUbicacion]
 AS
-SELECT        dbo.producto_estado_ubic.fec_agr, dbo.producto_estado_ubic.user_agr, dbo.producto_estado_ubic.fec_mod, dbo.producto_estado_ubic.user_mod, 
-                         dbo.producto_estado_ubic.activo, dbo.producto_estado.nombre AS Estado, 
-                         'T[' + dbo.bodega_tramo.descripcion + '] - C[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.indice_x), ''), 2) 
-                         + '] - N[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.nivel), ''), 2) 
-                         + ']' + ' - P[' + dbo.bodega_ubicacion.orientacion_pos + ']' + ' - #[' + CONVERT(NVARCHAR(25), dbo.bodega_ubicacion.IdUbicacion) + ']' AS Ubicacion, 
-                         dbo.producto_estado_ubic.IdEstado, dbo.producto_estado_ubic.IdProductoEstadUbic, dbo.producto_estado_ubic.IdUbicacionDefecto, dbo.bodega.IdBodega, 
-                         dbo.bodega.nombre AS Bodega
-FROM            dbo.producto_estado RIGHT OUTER JOIN
-                         dbo.bodega_tramo INNER JOIN
-                         dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo INNER JOIN
-                         dbo.bodega_sector ON dbo.bodega_tramo.IdSector = dbo.bodega_sector.IdSector INNER JOIN
-                         dbo.bodega_area ON dbo.bodega_sector.IdArea = dbo.bodega_area.IdArea INNER JOIN
-                         dbo.bodega ON dbo.bodega_area.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
-                         dbo.producto_estado_ubic ON dbo.bodega.IdBodega = dbo.producto_estado_ubic.IdBodega AND 
-                         dbo.bodega_ubicacion.IdUbicacion = dbo.producto_estado_ubic.IdUbicacionDefecto ON dbo.producto_estado.IdEstado = dbo.producto_estado_ubic.IdEstado
+SELECT     dbo.producto_estado_ubic.fec_agr, dbo.producto_estado_ubic.user_agr, dbo.producto_estado_ubic.fec_mod, dbo.producto_estado_ubic.user_mod, dbo.producto_estado_ubic.activo, dbo.producto_estado.nombre AS Estado, 
+                  'T[' + dbo.bodega_tramo.descripcion + '] - C[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.indice_x), ''), 2) + '] - N[' + RIGHT('00' + ISNULL(CONVERT(NVARCHAR(10), dbo.bodega_ubicacion.nivel), ''), 2) 
+                  + ']' + ' - P[' + dbo.bodega_ubicacion.orientacion_pos + ']' + ' - #[' + CONVERT(NVARCHAR(25), dbo.bodega_ubicacion.IdUbicacion) + ']' AS Ubicacion, dbo.producto_estado_ubic.IdEstado, dbo.producto_estado_ubic.IdProductoEstadUbic, 
+                  dbo.producto_estado_ubic.IdUbicacionDefecto, dbo.bodega.IdBodega, dbo.bodega.nombre AS Bodega
+FROM        dbo.producto_estado RIGHT OUTER JOIN
+                  dbo.bodega_tramo INNER JOIN
+                  dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo INNER JOIN
+                  dbo.bodega ON dbo.bodega_tramo.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
+                  dbo.producto_estado_ubic ON dbo.bodega.IdBodega = dbo.producto_estado_ubic.IdBodega AND dbo.bodega_ubicacion.IdUbicacion = dbo.producto_estado_ubic.IdUbicacionDefecto ON dbo.producto_estado.IdEstado = dbo.producto_estado_ubic.IdEstado
+
+GO
+
+ALTER VIEW [dbo].[VW_ProductoEstadoUbic]
+AS
+SELECT     u.IdUbicacion, p.IdEstado, dbo.bodega.IdBodega, CASE WHEN t .es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(t .descripcion, 2, iif(CHARINDEX('-', t .descripcion, 0) < 0, 1, CHARINDEX('-', t .descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), 
+                  u.indice_x), 2) + ' - ' + 'T' + SUBSTRING(t .descripcion, iif(CHARINDEX('-', t .descripcion, 0) < 0, 0, CHARINDEX('-', t .descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), u.nivel), 2) 
+                  + ' - ' + 'Pos' + u.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), u.IdUbicacion) ELSE t .descripcion END AS NombreUbic
+FROM        dbo.producto_estado_ubic AS p INNER JOIN
+                  dbo.bodega_ubicacion AS u ON p.IdUbicacionDefecto = u.IdUbicacion INNER JOIN
+                  dbo.bodega_tramo AS t ON t.IdTramo = u.IdTramo INNER JOIN
+                  dbo.bodega ON p.IdBodega = dbo.bodega.IdBodega AND t.IdBodega = dbo.bodega.IdBodega
+
 GO
 
 ALTER VIEW [dbo].[VW_Producto_Estado_Ubic_Bodega]
