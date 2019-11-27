@@ -2250,3 +2250,5 @@ ON [dbo].[producto] ([IdPropietario])
 INCLUDE ([codigo],[nombre])
 
 alter table regla_ubicacion add IdBodega integer default 0
+
+alter table trans_inv_tramo add IdBodega integer
