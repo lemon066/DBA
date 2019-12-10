@@ -2385,3 +2385,9 @@ dbo.sis_tipo_tarea AS stt ON m.IdTipoTarea = stt.IdTipoTarea LEFT OUTER JOIN
 dbo.trans_ajuste_enc aje ON aje.idajusteenc = m.IdTransaccion
 WHERE M.IdTipoTarea = 17
 GO
+
+
+CREATE NONCLUSTERED INDEX NCLI_Producto_20191210_EJC
+ON [dbo].[producto] ([IdClasificacion])
+INCLUDE ([IdFamilia],[codigo],[nombre],[codigo_barra])
+GO
