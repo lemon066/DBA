@@ -2426,3 +2426,6 @@ GO
 CREATE NONCLUSTERED INDEX NCLI_Bodega_Ubicacion_20191210_EJC
 ON [dbo].[bodega_ubicacion] ([IdBodega],[IdSector])
 INCLUDE ([IdUbicacion],[IdTramo],[IdArea])
+
+CREATE NONCLUSTERED INDEX NCLI_Stock_20191210_EJC
+ON [dbo].[stock] ([IdUbicacion])
