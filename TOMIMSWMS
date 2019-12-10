@@ -2395,3 +2395,31 @@ GO
 CREATE NONCLUSTERED INDEX NCLI_Producto_Bodega_20191210_EJC
 ON [dbo].[producto_bodega] ([IdProducto])
 GO
+
+ALTER VIEW [dbo].[VW_Movimientos_N]
+AS
+SELECT        pr.nombre_comercial AS Propietario, p.nombre AS Producto, pp.nombre AS Presentación, pe1.nombre AS EstadoOrigen, pe2.nombre AS EstadoDestino, u.Nombre AS UMBas, m.cantidad, m.peso, m.lote, 
+                         u1.descripcion AS UbicOrigen, u2.descripcion AS UbicDestino, stt.Nombre AS TipoTarea, m.IdBodegaOrigen, m.fecha, p.IdProducto, p.codigo, p.codigo_barra AS CodigoBarra, stt.IdTipoTarea, stt.Contabilizar, m.fecha_vence, 
+                         pr.IdTipoActualizacionCosto, m.IdPresentacion, m.IdUnidadMedida, m.IdEstadoOrigen, m.IdProductoBodega, prb.IdPropietarioBodega, prb.IdBodega, m.barra_pallet, dbo.producto_clasificacion.nombre AS Clasificacion, 
+                         dbo.producto_familia.nombre AS Familia
+FROM            dbo.trans_movimientos AS m LEFT OUTER JOIN
+                         dbo.propietario_bodega AS prb ON m.IdPropietarioBodega = prb.IdPropietarioBodega INNER JOIN
+                         dbo.propietarios AS pr ON prb.IdPropietario = pr.IdPropietario LEFT OUTER JOIN
+                         dbo.producto_bodega AS pb ON m.IdProductoBodega = pb.IdProductoBodega INNER JOIN
+                         dbo.producto AS p ON pb.IdProducto = p.IdProducto INNER JOIN
+                         dbo.producto_clasificacion ON pr.IdPropietario = dbo.producto_clasificacion.IdPropietario AND p.IdClasificacion = dbo.producto_clasificacion.IdClasificacion INNER JOIN
+                         dbo.producto_familia ON pr.IdPropietario = dbo.producto_familia.IdPropietario AND p.IdFamilia = dbo.producto_familia.IdFamilia LEFT OUTER JOIN
+                         dbo.bodega_ubicacion AS u2 ON m.IdUbicacionDestino = u2.IdUbicacion 
+						AND u2.IdBodega = m.IdBodegaDestino
+						LEFT OUTER JOIN
+						dbo.bodega_ubicacion AS u1 ON m.IdUbicacionOrigen = u1.IdUbicacion 
+						AND u1.IdBodega = m.IdBodegaOrigen
+						LEFT OUTER JOIN
+                         dbo.producto_presentacion AS pp ON m.IdPresentacion = pp.IdPresentacion AND p.IdProducto = pp.IdProducto LEFT OUTER JOIN
+                         dbo.producto_estado AS pe1 ON m.IdEstadoOrigen = pe1.IdEstado AND pe1.IdPropietario = pr.IdPropietario LEFT OUTER JOIN
+                         dbo.producto_estado AS pe2 ON m.IdEstadoDestino = pe2.IdEstado AND pe2.IdPropietario = pr.IdPropietario LEFT OUTER JOIN
+                         dbo.unidad_medida AS u ON m.IdUnidadMedida = u.IdUnidadMedida AND u.IdPropietario = pr.IdPropietario LEFT OUTER JOIN
+                         dbo.sis_tipo_tarea AS stt ON m.IdTipoTarea = stt.IdTipoTarea
+GO
+
+
