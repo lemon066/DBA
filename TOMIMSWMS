@@ -2423,3 +2423,6 @@ FROM            dbo.trans_movimientos AS m LEFT OUTER JOIN
 GO
 
 
+CREATE NONCLUSTERED INDEX NCLI_Bodega_Ubicacion_20191210_EJC
+ON [dbo].[bodega_ubicacion] ([IdBodega],[IdSector])
+INCLUDE ([IdUbicacion],[IdTramo],[IdArea])
