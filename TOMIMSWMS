@@ -2391,3 +2391,7 @@ CREATE NONCLUSTERED INDEX NCLI_Producto_20191210_EJC
 ON [dbo].[producto] ([IdClasificacion])
 INCLUDE ([IdFamilia],[codigo],[nombre],[codigo_barra])
 GO
+
+CREATE NONCLUSTERED INDEX NCLI_Producto_Bodega_20191210_EJC
+ON [dbo].[producto_bodega] ([IdProducto])
+GO
