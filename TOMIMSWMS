@@ -2443,3 +2443,7 @@ FROM            dbo.stock INNER JOIN
                          dbo.bodega_tramo.IdBodega = dbo.bodega_ubicacion.IdBodega ON dbo.stock.IdUbicacion = dbo.bodega_ubicacion.IdUbicacion AND dbo.producto_bodega.IdBodega = dbo.bodega.IdBodega AND 
                          dbo.producto_bodega.IdBodega = dbo.bodega_ubicacion.IdBodega
 GO
+
+CREATE NONCLUSTERED INDEX NCLI_Producto_20191210A_EJC
+ON [dbo].[producto] ([IdPropietario])
+INCLUDE ([IdProducto],[codigo],[nombre])
