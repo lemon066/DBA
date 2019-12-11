@@ -2451,3 +2451,6 @@ INCLUDE ([IdProducto],[codigo],[nombre])
 CREATE NONCLUSTERED INDEX NCLI_TransMovimientos_20191211_EJC
 ON [dbo].[trans_movimientos] ([IdProductoBodega],[IdBodegaDestino])
 INCLUDE ([IdBodegaOrigen],[IdPropietarioBodega],[IdUbicacionOrigen],[IdUbicacionDestino],[IdPresentacion],[IdEstadoOrigen],[IdEstadoDestino],[IdUnidadMedida],[IdTipoTarea],[cantidad],[peso],[lote],[fecha_vence],[fecha],[barra_pallet])
+
+insert into menu_sistema values('3.8','Generador de Tableros', 'grpRepTablero',2,3,0)
+insert into menu_sistema values('3.8.1','Diseñador de Tablero', 'mnuDashBoardDesigner',3,3.8,0)
