@@ -2447,3 +2447,7 @@ GO
 CREATE NONCLUSTERED INDEX NCLI_Producto_20191210A_EJC
 ON [dbo].[producto] ([IdPropietario])
 INCLUDE ([IdProducto],[codigo],[nombre])
+
+CREATE NONCLUSTERED INDEX NCLI_TransMovimientos_20191211_EJC
+ON [dbo].[trans_movimientos] ([IdProductoBodega],[IdBodegaDestino])
+INCLUDE ([IdBodegaOrigen],[IdPropietarioBodega],[IdUbicacionOrigen],[IdUbicacionDestino],[IdPresentacion],[IdEstadoOrigen],[IdEstadoDestino],[IdUnidadMedida],[IdTipoTarea],[cantidad],[peso],[lote],[fecha_vence],[fecha],[barra_pallet])
