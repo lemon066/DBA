@@ -2454,3 +2454,17 @@ INCLUDE ([IdBodegaOrigen],[IdPropietarioBodega],[IdUbicacionOrigen],[IdUbicacion
 
 insert into menu_sistema values('3.8','Generador de Tableros', 'grpRepTablero',2,3,0)
 insert into menu_sistema values('3.8.1','Diseñador de Tablero', 'mnuDashBoardDesigner',3,3.8,0)
+
+CREATE TABLE [dbo].[trans_movimiento_pallet](
+	[idmovimientopallet] [int] NOT NULL,
+	[idbodega] [int] NULL,
+	[lp_origen] [nvarchar](50) NULL,
+	[lp_destino] [nvarchar](50) NULL,
+	[orientacion] [nvarchar](50) NULL,
+	[fecha] [date] NULL,
+	[idusuario] [int] NULL,
+ CONSTRAINT [PK_trans_movimiento_pallet] PRIMARY KEY CLUSTERED 
+(
+	[idmovimientopallet] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
