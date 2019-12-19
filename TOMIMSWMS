@@ -2478,6 +2478,7 @@ FROM stock s
 INNER JOIN producto_bodega pb
     ON s.IdProductoBodega = pb.IdProductoBodega
     
+ALTER TABLE stock alter column IdBodega int NOT NULL; 
 
 ALTER VIEW [dbo].[VW_Stock_Res]
 AS
