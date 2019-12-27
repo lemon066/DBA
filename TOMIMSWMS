@@ -2559,3 +2559,5 @@ FROM            dbo.propietarios INNER JOIN
 WHERE        (dbo.sis_tipo_tarea.Nombre = 'UBIC') OR
                          (dbo.sis_tipo_tarea.Nombre = 'CEST')
 GO
+
+alter table trans_inv_ciclico_ubic add IdBodega int not null
