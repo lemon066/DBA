@@ -2788,3 +2788,6 @@ CREATE NONCLUSTERED INDEX NCLI_Stock_20200115_EJC
 ON [dbo].[stock] ([IdProductoBodega])
 INCLUDE ([IdBodega],[IdPresentacion],[IdRecepcionEnc],[IdRecepcionDet],[lote],[cantidad],[fecha_vence])
 
+CREATE NONCLUSTERED INDEX NCL_Producto_20200115_ejc
+ON [dbo].[producto] ([IdUnidadMedidaBasica])
+INCLUDE ([codigo],[nombre],[codigo_barra])
