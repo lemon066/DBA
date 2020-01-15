@@ -2703,3 +2703,9 @@ GO
 CREATE NONCLUSTERED INDEX NCL_Trans_re_Det_20200115_EJC
 ON [dbo].[trans_re_det] ([IdProductoBodega])
 INCLUDE ([IdPresentacion],[IdUnidadMedida],[IdProductoEstado],[cantidad_recibida],[lic_plate])
+
+
+CREATE NONCLUSTERED INDEX NCL_trans_re_det_rep_20200115_ejc
+ON [dbo].[trans_re_det] ([IdRecepcionEnc])
+INCLUDE ([No_Linea],[nombre_producto],[nombre_presentacion],[nombre_unidad_medida],[nombre_producto_estado],[lote],[fecha_vence],[fec_agr],[observacion],[codigo_producto],[lic_plate])
+GO
