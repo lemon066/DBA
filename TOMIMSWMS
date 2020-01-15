@@ -2696,3 +2696,10 @@ FROM            dbo.trans_movimientos AS m LEFT OUTER JOIN
                          dbo.unidad_medida AS u ON m.IdUnidadMedida = u.IdUnidadMedida AND u.IdPropietario = pr.IdPropietario LEFT OUTER JOIN
                          dbo.sis_tipo_tarea AS stt ON m.IdTipoTarea = stt.IdTipoTarea
 GO
+
+
+/****** Object:  View [dbo].[NCL_Trans_re_Det_20200115_EJC]    Script Date: 15/01/2020 09:09:31 ******/
+
+CREATE NONCLUSTERED INDEX NCL_Trans_re_Det_20200115_EJC
+ON [dbo].[trans_re_det] ([IdProductoBodega])
+INCLUDE ([IdPresentacion],[IdUnidadMedida],[IdProductoEstado],[cantidad_recibida],[lic_plate])
