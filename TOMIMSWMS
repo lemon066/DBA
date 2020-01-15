@@ -2791,3 +2791,8 @@ INCLUDE ([IdBodega],[IdPresentacion],[IdRecepcionEnc],[IdRecepcionDet],[lote],[c
 CREATE NONCLUSTERED INDEX NCL_Producto_20200115_ejc
 ON [dbo].[producto] ([IdUnidadMedidaBasica])
 INCLUDE ([codigo],[nombre],[codigo_barra])
+
+alter table stock
+  add constraint Stock_NonNegative_20200115_EJC
+      check (Cantidad > 0)
+      
