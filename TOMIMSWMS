@@ -2710,6 +2710,11 @@ ON [dbo].[trans_re_det] ([IdRecepcionEnc])
 INCLUDE ([No_Linea],[nombre_producto],[nombre_presentacion],[nombre_unidad_medida],[nombre_producto_estado],[lote],[fecha_vence],[fec_agr],[observacion],[codigo_producto],[lic_plate])
 GO
 
+CREATE NONCLUSTERED INDEX NCL_Proveedor_Bodega_20200115_EJC
+ON [dbo].[proveedor_bodega] ([IdBodega])
+INCLUDE ([IdProveedor])
+GO
+
 ALTER VIEW [dbo].[VW_Recepcion_Det]
 AS
 SELECT        TOP (100) PERCENT dbo.trans_re_enc.IdRecepcionEnc, dbo.trans_re_enc.IdPropietarioBodega, dbo.propietarios.nombre_comercial AS Propietario, dbo.proveedor.nombre AS Proveedor, dbo.bodega.codigo AS Bodega, 
