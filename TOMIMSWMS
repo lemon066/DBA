@@ -2783,3 +2783,8 @@ FROM            dbo.bodega_tramo INNER JOIN
                          dbo.producto_presentacion ON dbo.trans_re_det.IdPresentacion = dbo.producto_presentacion.IdPresentacion AND dbo.producto.IdProducto = dbo.producto_presentacion.IdProducto
 GO
 
+
+CREATE NONCLUSTERED INDEX NCLI_Stock_20200115_EJC
+ON [dbo].[stock] ([IdProductoBodega])
+INCLUDE ([IdBodega],[IdPresentacion],[IdRecepcionEnc],[IdRecepcionDet],[lote],[cantidad],[fecha_vence])
+
