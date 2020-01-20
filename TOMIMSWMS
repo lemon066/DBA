@@ -2796,3 +2796,6 @@ alter table stock
   add constraint Stock_NonNegative_20200115_EJC
       check (Cantidad > 0)
       
+CREATE NONCLUSTERED INDEX NCLI_Proveedor_20200120_EJC
+ON [dbo].[proveedor] ([IdPropietario])
+INCLUDE ([nombre])
