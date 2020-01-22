@@ -2851,4 +2851,11 @@ FROM            dbo.stock INNER JOIN
 GO
 
 
+//Delete para opciones no utilizadas.
+delete from menu_sistema where Titulo in('Turno Laboral','Jornada Laboral','Horario Laboral','Letra',
+'Serie documentos','Control Montacarga','Falla Montacarga','Vendedor Road','Vendedor Ruta','Tipo Tarima',
+'Tipo Contenedor','Tarima','Tipo Etiqueta','Tareas de pre ingreso principal','Tareas de pre ingreso')
 
+Delete from menu_rol  where idmenu in(select IdMenu from menu_sistema where Titulo in('Turno Laboral','Jornada Laboral','Horario Laboral','Letra',
+'Serie documentos','Control Montacarga','Falla Montacarga','Vendedor Road','Vendedor Ruta','Tipo Tarima',
+'Tipo Contenedor','Tarima','Tipo Etiqueta','Tareas de pre ingreso principal','Tareas de pre ingreso')) 
