@@ -2862,11 +2862,19 @@ Delete from menu_rol  where idmenu in(select IdMenu from menu_sistema where Titu
 
 ALTER TABLE TRANS_PICKING_ENC ADD procesado_bof BIT DEFAULT 0
 
+UPDATE trans_picking_enc SET procesado_bof = 1 WHERE DATEDIFF(MINUTE,hora_ini,HORA_FIN) <=1
+UPDATE trans_picking_enc SET procesado_bof = 0 where procesado_bof IS NULL
+
 ALTER VIEW [dbo].[VW_Picking]
 AS
 SELECT        enc.IdPickingEnc AS Código, b.nombre AS Bodega, p.nombre_comercial AS Propietario, bu.descripcion AS [Ubicación Picking], enc.estado, enc.detalle_operador AS [Detalle Operador], CONVERT(char(5), enc.hora_ini, 108) 
                          AS [Hora Inicial], CONVERT(char(5), enc.hora_fin, 108) AS [Hora Final], 
-						 DATEDIFF(MINUTE,hora_ini,hora_fin)as Duracion_Minutos ,
+						 case when procesado_bof = 1
+						then 
+						'00:00'
+						else
+						CONVERT(char(5), hora_fin - hora_ini, 108)
+						end as Duracion_Minutos ,
 						 enc.fecha_picking AS [Fecha Picking], enc.activo, enc.IdBodega, enc.procesado_bof as Procesado_Bof
 FROM            dbo.trans_picking_enc AS enc INNER JOIN
                          dbo.propietario_bodega AS pb ON enc.IdPropietarioBodega = pb.IdPropietarioBodega INNER JOIN
@@ -2874,5 +2882,6 @@ FROM            dbo.trans_picking_enc AS enc INNER JOIN
                          dbo.bodega AS b ON enc.IdBodega = b.IdBodega INNER JOIN
                          dbo.bodega_ubicacion AS bu ON enc.IdUbicacionPicking = bu.IdUbicacion AND enc.IdBodega = bu.IdBodega
 GO
+
 
 
