@@ -2865,7 +2865,9 @@ ALTER TABLE TRANS_PICKING_ENC ADD procesado_bof BIT DEFAULT 0
 ALTER VIEW [dbo].[VW_Picking]
 AS
 SELECT        enc.IdPickingEnc AS Código, b.nombre AS Bodega, p.nombre_comercial AS Propietario, bu.descripcion AS [Ubicación Picking], enc.estado, enc.detalle_operador AS [Detalle Operador], CONVERT(char(5), enc.hora_ini, 108) 
-                         AS [Hora Inicial], CONVERT(char(5), enc.hora_fin, 108) AS [Hora Final], enc.fecha_picking AS [Fecha Picking], enc.activo, enc.IdBodega, enc.procesado_bof
+                         AS [Hora Inicial], CONVERT(char(5), enc.hora_fin, 108) AS [Hora Final], 
+						 DATEDIFF(MINUTE,hora_ini,hora_fin)as Duracion_Minutos ,
+						 enc.fecha_picking AS [Fecha Picking], enc.activo, enc.IdBodega, enc.procesado_bof as Procesado_Bof
 FROM            dbo.trans_picking_enc AS enc INNER JOIN
                          dbo.propietario_bodega AS pb ON enc.IdPropietarioBodega = pb.IdPropietarioBodega INNER JOIN
                          dbo.propietarios AS p ON pb.IdPropietario = p.IdPropietario INNER JOIN
