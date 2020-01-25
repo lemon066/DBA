@@ -2978,7 +2978,8 @@ FROM            dbo.trans_picking_det AS pcdet INNER JOIN
                          dbo.producto_presentacion ON pdet.IdPresentacion = dbo.producto_presentacion.IdPresentacion
 GO
 
-alter table trans_picking_ubic add IdOperadorBodega int null
+alter table trans_picking_ubic add IdOperadorBodega_Pickeo int null
+alter table trans_picking_ubic add IdOperadorBodega_Verifico int null
 
 USE [IMS4MB_IDEALSA_PRD_07012020]
 GO
