@@ -2891,3 +2891,5 @@ SET s.IdPickingEnc = pd.IdPickingEnc
 FROM trans_picking_ubic s
 INNER JOIN trans_picking_det pd
 ON s.IdPickingdet = pd.IdPickingdet
+
+ALTER TABLE Trans_Picking_Ubic ADD IdOperadorBodega int null
