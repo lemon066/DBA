@@ -2893,3 +2893,23 @@ INNER JOIN trans_picking_det pd
 ON s.IdPickingdet = pd.IdPickingdet
 
 ALTER TABLE Trans_Picking_Ubic ADD IdOperadorBodega int null
+
+ALTER VIEW [dbo].[VW_PickingUbicacion]
+AS
+SELECT        penc.IdPedidoEnc AS Pedido, d.IdPickingEnc AS [ID Picking], p.codigo AS Código, p.nombre AS Producto, pp.nombre AS Presentación, pe.nombre AS Estado, um.Nombre AS [Unidad Medida], b.descripcion AS Ubicación, 
+                         pdet.Cantidad AS Solicitado, d.cantidad_recibida AS Picking, u.cantidad_verificada AS Verificado, penc.Fecha_Pedido AS [Fecha Pedido], enc.fecha_picking AS [Fecha Picking], u.fecha_vence AS Vence, u.activo, u.IdPickingUbic, 
+                         enc.IdPropietarioBodega, pdet.IdProductoBodega, pdet.IdEstado, pdet.IdPresentacion, pdet.IdUnidadMedidaBasica, pdet.IdPedidoDet
+FROM            dbo.trans_picking_ubic AS u INNER JOIN
+                         dbo.trans_picking_det AS d ON u.IdPickingDet = d.IdPickingDet INNER JOIN
+                         dbo.bodega_ubicacion AS b ON u.IdUbicacion = b.IdUbicacion AND u.IdBodega = b.IdBodega INNER JOIN
+                         dbo.trans_picking_enc AS enc ON d.IdPickingEnc = enc.IdPickingEnc INNER JOIN
+                         dbo.propietario_bodega AS prb ON enc.IdPropietarioBodega = prb.IdPropietarioBodega INNER JOIN
+                         dbo.propietarios AS pr ON prb.IdPropietario = pr.IdPropietario INNER JOIN
+                         dbo.trans_pe_det AS pdet ON d.IdPedidoDet = pdet.IdPedidoDet INNER JOIN
+                         dbo.trans_pe_enc AS penc ON pdet.IdPedidoEnc = penc.IdPedidoEnc INNER JOIN
+                         dbo.producto_bodega AS pb ON pdet.IdProductoBodega = pb.IdProductoBodega INNER JOIN
+                         dbo.producto AS p ON pb.IdProducto = p.IdProducto LEFT OUTER JOIN
+                         dbo.producto_presentacion AS pp ON pdet.IdPresentacion = pp.IdPresentacion LEFT OUTER JOIN
+                         dbo.producto_estado AS pe ON pdet.IdEstado = pe.IdEstado INNER JOIN
+                         dbo.unidad_medida AS um ON pdet.IdUnidadMedidaBasica = um.IdUnidadMedida
+GO
