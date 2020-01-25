@@ -2977,3 +2977,5 @@ FROM            dbo.trans_picking_det AS pcdet INNER JOIN
                          dbo.unidad_medida ON pdet.IdUnidadMedidaBasica = dbo.unidad_medida.IdUnidadMedida LEFT OUTER JOIN
                          dbo.producto_presentacion ON pdet.IdPresentacion = dbo.producto_presentacion.IdPresentacion
 GO
+
+alter table trans_picking_ubic add IdOperadorBodega int null
