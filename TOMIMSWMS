@@ -2884,4 +2884,10 @@ FROM            dbo.trans_picking_enc AS enc INNER JOIN
 GO
 
 
+ALTER TABLE TRANS_PICKING_UBIC ADD idpickingenc int DEFAULT 0
 
+UPDATE s
+SET s.IdPickingEnc = pd.IdPickingEnc
+FROM trans_picking_ubic s
+INNER JOIN trans_picking_det pd
+ON s.IdPickingdet = pd.IdPickingdet
