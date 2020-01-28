@@ -3088,3 +3088,6 @@ FROM            dbo.trans_picking_ubic AS pu INNER JOIN
                          dbo.stock_res AS sr ON pu.IdPropietarioBodega = sr.IdPropietarioBodega AND pu.IdStock = sr.IdStock AND pu.IdPedidoDet = sr.IdPedidoDet AND pu.IdProductoBodega = sr.IdProductoBodega AND 
                          pu.IdProductoEstado = sr.IdProductoEstado AND pu.IdUnidadMedida = sr.IdUnidadMedida AND pu.IdStockRes = sr.IdStockRes
 GO
+
+/****** Object:  View [dbo].[VW_PickingUbic_By_IdPickingEnc]    Script Date: 27/01/2020 10:57:05 ******/
+ALTER TABLE BODEGA ADD Existencia_En_Unidades_Mixtas bit default 0
