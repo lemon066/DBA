@@ -23,7 +23,7 @@ SELECT        dbo.producto_bodega.IdBodega, dbo.propietarios.IdPropietario, dbo.
                          bodega_ubicacion.indice_x), 2) + ' - ' + 'T' + SUBSTRING(bodega_tramo.descripcion, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 0, CHARINDEX('-', 
                          bodega_tramo.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.nivel), 2) 
                          + ' - ' + 'Pos' + bodega_ubicacion.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) 
-                         ELSE bodega_tramo.descripcion + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion)  END AS Nombre_Completo
+                         ELSE bodega_ubicacion.descripcion + ' - ' + '# ' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) END AS Nombre_Completo
 FROM            dbo.stock_res RIGHT OUTER JOIN
                          dbo.indice_rotacion RIGHT OUTER JOIN
                          dbo.bodega_tramo INNER JOIN
@@ -51,5 +51,4 @@ GROUP BY dbo.propietarios.nombre_comercial, dbo.propietarios.IdPropietario, dbo.
                          dbo.bodega_ubicacion.descripcion, dbo.bodega_tramo.descripcion, dbo.bodega_tramo.descripcion, dbo.bodega_ubicacion.orientacion_pos, dbo.bodega_tramo.es_rack, dbo.bodega_tramo.descripcion, 
                          dbo.bodega_tramo.IdBodega
 GO
-
 
