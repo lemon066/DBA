@@ -3091,3 +3091,7 @@ GO
 
 /****** Object:  View [dbo].[VW_PickingUbic_By_IdPickingEnc]    Script Date: 27/01/2020 10:57:05 ******/
 ALTER TABLE BODEGA ADD Existencia_En_Unidades_Mixtas bit default 0
+
+CREATE NONCLUSTERED INDEX NCLI_bodega_ubicacion_20200204_EJC
+ON [dbo].[bodega_ubicacion] ([IdTramo],[IdBodega],[IdSector])
+INCLUDE ([IdUbicacion],[descripcion],[ancho],[largo],[alto],[nivel],[indice_x],[orientacion_pos])
