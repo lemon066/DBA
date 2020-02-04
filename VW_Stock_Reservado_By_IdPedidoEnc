@@ -1,5 +1,5 @@
 ALTER VIEW [dbo].[VW_Stock_Reservado_By_IdPedidoEnc] AS 
-SELECT stock_res.IdStockRes, producto.codigo,producto.nombre as Producto,producto_estado.nombre as Estado,stock_res.lote AS Lote, 
+SELECT stock_res.IdPedido, stock_res.IdStockRes, producto.codigo,producto.nombre as Producto,producto_estado.nombre as Estado,stock_res.lote AS Lote, 
 stock_res.fecha_vence AS Fecha_Vence, SUM(stock_res.cantidad) AS Cantidad,
 (case 
 when stock_res.IdPresentacion >0 then 
@@ -31,6 +31,5 @@ bodega_ubicacion.IdBodega = bodega.IdBodega
 GROUP BY stock_res.IdStockRes, producto.codigo, stock_res.lote, stock_res.fecha_vence, stock_res.IdUbicacion, bodega_tramo.descripcion, 
 bodega_tramo.es_rack, bodega_ubicacion.indice_x, bodega_ubicacion.nivel, bodega_ubicacion.orientacion_pos, 
 bodega_ubicacion.IdUbicacion, producto.nombre, producto_presentacion.nombre, unidad_medida.Nombre, stock_res.lic_plate, 
-producto_estado.nombre, producto_presentacion.factor, stock_res.IdPresentacion 
+producto_estado.nombre, producto_presentacion.factor, stock_res.IdPresentacion, stock_res.IdPedido
 GO
-
