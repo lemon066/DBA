@@ -1,4 +1,4 @@
-/****** Object:  View [dbo].[VW_Stock_Resumen]    Script Date: 4/02/2020 12:09:59 ******/
+/****** Object:  View [dbo].[VW_Stock_Resumen]    Script Date: 4/02/2020 16:19:06 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -19,12 +19,19 @@ SELECT        dbo.producto_bodega.IdBodega, dbo.propietarios.IdPropietario, dbo.
                          dbo.producto.existencia_max AS Existencia_max_umbas, dbo.producto.costo, dbo.producto_presentacion.MinimoExistencia AS Existencia_min_pres, dbo.producto_presentacion.MaximoExistencia AS Existencia_max_pres, 
                          dbo.stock.atributo_variante_1, dbo.bodega_ubicacion.IdUbicacion AS IdUbicacionActual, dbo.bodega_ubicacion.nivel AS Ubicacion_Nivel, dbo.bodega_ubicacion.indice_x AS Ubicacion_Indice_X, 
                          dbo.bodega_ubicacion.descripcion AS Ubicacion_Nombre, dbo.bodega_tramo.descripcion AS Ubicacion_Tramo,
-						 CASE WHEN bodega_tramo.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(bodega_tramo.descripcion, 2, 
-                         iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 1, CHARINDEX('-', bodega_tramo.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), 
-                         bodega_ubicacion.indice_x), 2) + ' - ' + 'T' + SUBSTRING(bodega_tramo.descripcion, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 0, CHARINDEX('-', 
-                         bodega_tramo.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.nivel), 2) 
-                         + ' - ' + 'Pos' + bodega_ubicacion.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) 
-                         ELSE bodega_ubicacion.descripcion + ' - ' + '# ' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) END AS UbicacionCompleta
+						 
+						 CASE WHEN bodega_tramo.es_rack = 1 
+						 THEN 
+							'R' + RIGHT('00' + SUBSTRING(bodega_tramo.descripcion, 2, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 1, CHARINDEX('-', bodega_tramo.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.indice_x), 2) 
+							+ ' - ' + 'T' + SUBSTRING(bodega_tramo.descripcion, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 0, CHARINDEX('-', bodega_tramo.descripcion, 0) + 1), 1) + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), 
+							bodega_ubicacion.nivel), 2) + ' - ' + 'Pos' + bodega_ubicacion.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) 
+							
+							ELSE 
+							
+							bodega_ubicacion.descripcion + ' - ' + '# ' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) 					
+
+						END AS UbicacionCompleta
+
 FROM            dbo.stock_res RIGHT OUTER JOIN
                          dbo.indice_rotacion RIGHT OUTER JOIN
                          dbo.unidad_medida INNER JOIN
@@ -33,7 +40,8 @@ FROM            dbo.stock_res RIGHT OUTER JOIN
                          dbo.propietario_bodega ON dbo.stock.IdPropietarioBodega = dbo.propietario_bodega.IdPropietarioBodega ON dbo.propietarios.IdPropietario = dbo.propietario_bodega.IdPropietario ON 
                          dbo.unidad_medida.IdUnidadMedida = dbo.stock.IdUnidadMedida LEFT OUTER JOIN
                          dbo.bodega_tramo INNER JOIN
-                         dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo INNER JOIN
+                         dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo AND dbo.bodega_tramo.IdSector = dbo.bodega_ubicacion.IdSector AND 
+                         dbo.bodega_tramo.IdBodega = dbo.bodega_ubicacion.IdBodega AND dbo.bodega_tramo.IdArea = dbo.bodega_ubicacion.IdArea INNER JOIN
                          dbo.bodega ON dbo.bodega_tramo.IdBodega = dbo.bodega.IdBodega ON dbo.stock.IdBodega = dbo.bodega_ubicacion.IdBodega AND dbo.stock.IdUbicacion = dbo.bodega_ubicacion.IdUbicacion LEFT OUTER JOIN
                          dbo.producto_bodega INNER JOIN
                          dbo.producto ON dbo.producto_bodega.IdProducto = dbo.producto.IdProducto ON dbo.stock.IdProductoBodega = dbo.producto_bodega.IdProductoBodega ON 
@@ -49,3 +57,5 @@ GROUP BY dbo.propietarios.nombre_comercial, dbo.propietarios.IdPropietario, dbo.
                          dbo.producto_presentacion.MaximoExistencia, dbo.stock.cantidad, dbo.stock.atributo_variante_1, dbo.bodega_ubicacion.nivel, dbo.bodega_ubicacion.indice_x, dbo.bodega_ubicacion.descripcion, 
                          dbo.bodega_tramo.descripcion, dbo.bodega_ubicacion.orientacion_pos, dbo.bodega_tramo.es_rack
 GO
+
+
