@@ -3095,3 +3095,6 @@ ALTER TABLE BODEGA ADD Existencia_En_Unidades_Mixtas bit default 0
 CREATE NONCLUSTERED INDEX NCLI_bodega_ubicacion_20200204_EJC
 ON [dbo].[bodega_ubicacion] ([IdTramo],[IdBodega],[IdSector])
 INCLUDE ([IdUbicacion],[descripcion],[ancho],[largo],[alto],[nivel],[indice_x],[orientacion_pos])
+
+Script Date: 07/02/2020 14:37:05 ******/
+ALTER TABLE TRANS_INV_STOCK ADD IdBodega int default 0 not null
