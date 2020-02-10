@@ -1,12 +1,14 @@
 ALTER VIEW [dbo].[VW_BodegaUbicacion]
 AS
-SELECT        dbo.bodega_ubicacion.IdUbicacion, dbo.bodega_ubicacion.IdBodega,
+SELECT        dbo.bodega_ubicacion.IdBodega, bodega_area.IdArea, bodega_area.Descripcion as Nom_Area, 
+bodega_sector.IdSector, bodega_sector.descripcion as Nom_Sector, 
+bodega_tramo.IdTramo, bodega_tramo.descripcion as Nom_Tramo,
 CASE WHEN bodega_tramo.es_rack = 1 THEN 'R' + RIGHT('00' + SUBSTRING(bodega_tramo.descripcion, 2, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 1, 
                          CHARINDEX('-', bodega_tramo.descripcion, 0) - 2)), 2) + ' - ' + 'C' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.indice_x), 2) 
                          + ' - ' + 'T' + SUBSTRING(bodega_tramo.descripcion, iif(CHARINDEX('-', bodega_tramo.descripcion, 0) < 0, 0, CHARINDEX('-', bodega_tramo.descripcion, 0) + 1), 1) 
                          + ' - ' + 'N' + RIGHT('00' + CONVERT(NVARCHAR(10), bodega_ubicacion.nivel), 2) 
                          + ' - ' + 'Pos' + bodega_ubicacion.orientacion_pos + ' - ' + '#' + CONVERT(NVARCHAR(10), bodega_ubicacion.IdUbicacion) 
-                         ELSE bodega_tramo.descripcion END AS UbicacionCompleta
+                         ELSE bodega_tramo.descripcion END AS UbicacionCompleta,dbo.bodega_ubicacion.IdUbicacion
 FROM            dbo.bodega INNER JOIN
                          dbo.bodega_area ON dbo.bodega.IdBodega = dbo.bodega_area.IdBodega INNER JOIN
                          dbo.bodega_sector ON dbo.bodega_area.IdArea = dbo.bodega_sector.IdArea AND dbo.bodega_area.IdBodega = dbo.bodega_sector.IdBodega INNER JOIN
