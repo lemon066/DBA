@@ -3098,3 +3098,6 @@ INCLUDE ([IdUbicacion],[descripcion],[ancho],[largo],[alto],[nivel],[indice_x],[
 
 Script Date: 07/02/2020 14:37:05 ******/
 ALTER TABLE TRANS_INV_STOCK ADD IdBodega int default 0 not null
+
+Script Date: 14/02/2020 14:37:05 ******/
+alter table stock_res add IdBodega int not null default 0
