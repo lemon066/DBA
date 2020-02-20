@@ -1,0 +1,27 @@
+ALTER VIEW [dbo].[VW_Ajustes]
+AS
+SELECT trans_ajuste_enc.idajusteenc, trans_ajuste_det.idajustedet, trans_ajuste_enc.fecha, trans_ajuste_enc.referencia,
+trans_ajuste_det.codigo_producto, trans_ajuste_det.nombre_producto, trans_ajuste_det.IdPresentacion, unidad_medida.Nombre AS UMBas,
+trans_ajuste_enc.idbodega AS IdBodegaERP, cliente.codigo AS Codigo_Bodega, cliente.nombre_comercial AS Nombre_Bodega,
+trans_ajuste_det.cantidad_original, trans_ajuste_det.cantidad_nueva, trans_ajuste_det.peso_nuevo, trans_ajuste_det.peso_original,
+trans_ajuste_det.fecha_vence_nueva, trans_ajuste_det.fecha_vence_original, trans_ajuste_det.lote_original, trans_ajuste_det.lote_nuevo,
+ajuste_tipo.nombre AS Tipo_Ajuste, ajuste_tipo.modifica_cantidad, trans_ajuste_det.enviado, ajuste_motivo.nombre AS Motivo_Ajuste,
+trans_ajuste_det.observacion, trans_ajuste_det.codigo_ajuste, trans_ajuste_enc.IdProductoFamilia
+FROM cliente RIGHT OUTER JOIN
+ajuste_tipo INNER JOIN
+ajuste_motivo INNER JOIN
+trans_ajuste_det ON ajuste_motivo.idmotivoajuste = trans_ajuste_det.idmotivoajuste ON
+ajuste_tipo.idtipoajuste = trans_ajuste_det.idtipoajuste INNER JOIN
+trans_ajuste_enc ON trans_ajuste_det.idajusteenc = trans_ajuste_enc.idajusteenc INNER JOIN
+producto_bodega INNER JOIN
+producto INNER JOIN
+unidad_medida ON producto.IdUnidadMedidaBasica = unidad_medida.IdUnidadMedida ON
+producto_bodega.IdProducto = producto.IdProducto ON trans_ajuste_det.IdProductoBodega = producto_bodega.IdProductoBodega ON
+cliente.IdCliente = trans_ajuste_det.IdBodegaERP
+GROUP BY trans_ajuste_enc.idajusteenc, trans_ajuste_enc.fecha, trans_ajuste_enc.referencia, trans_ajuste_det.codigo_producto,
+trans_ajuste_det.nombre_producto, trans_ajuste_enc.idbodega, cliente.codigo, cliente.nombre_comercial, unidad_medida.Nombre,
+trans_ajuste_det.IdPresentacion, trans_ajuste_det.cantidad_original, trans_ajuste_det.cantidad_nueva, trans_ajuste_det.peso_nuevo,
+trans_ajuste_det.peso_original, trans_ajuste_det.fecha_vence_nueva, trans_ajuste_det.fecha_vence_original, ajuste_tipo.nombre,
+ajuste_tipo.modifica_cantidad, ajuste_motivo.nombre, trans_ajuste_det.enviado, trans_ajuste_det.lote_original, trans_ajuste_det.lote_nuevo,
+trans_ajuste_det.idajustedet, trans_ajuste_det.observacion, trans_ajuste_det.codigo_ajuste, trans_ajuste_enc.IdProductoFamilia
+GO
