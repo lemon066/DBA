@@ -1,0 +1,5 @@
+--#EJC20200225: Campos para guardar resultado de feel:
+alter table factura add FeelSerie nvarchar(25) null
+alter table factura add FeelNumero nvarchar(25) null
+alter table factura add FeelUUID nvarchar(50) null
+alter table factura add FeelFechaProcesado datetime null
