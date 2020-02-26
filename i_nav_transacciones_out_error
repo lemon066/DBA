@@ -1,3 +1,6 @@
+IF OBJECT_ID('[i_nav_transacciones_out_error]', 'U') IS NOT NULL 
+  DROP TABLE i_nav_transacciones_out_error; 
+
 CREATE TABLE [dbo].[i_nav_transacciones_out_error](
 	[IdMensaje] [int] NOT NULL,
 	[IdTransaccionWMS] [int] NULL,
@@ -8,6 +11,9 @@ CREATE TABLE [dbo].[i_nav_transacciones_out_error](
 	[EsError] [bit] NULL,
 	[NumeroError] [nvarchar](50) NULL,
 	[Observacion] [nvarchar](50) NULL,
+	[Fecha] [datetime] NULL DEFAULT GETDATE(),
+	[UsuarioERP] [nvarchar](50) NULL,
+	[UsuarioWMS] [nvarchar](50) NULL DEFAULT 'MI3',
  CONSTRAINT [PK_i_nav_transacciones_out_error] PRIMARY KEY CLUSTERED 
 (
 	[IdMensaje] ASC
