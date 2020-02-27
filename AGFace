@@ -2,7 +2,7 @@
 alter table factura add FeelSerie nvarchar(25) null default 0
 alter table factura add FeelNumero nvarchar(25) null default 0
 alter table factura add FeelUUID nvarchar(50) null default 0
-alter table factura add FeelFechaProcesado datetime null default 19000101
+alter table factura add FeelFechaProcesado datetime null default '19000101'
 
 update factura set feelserie = 0
 update factura set FeelNumero = 0
