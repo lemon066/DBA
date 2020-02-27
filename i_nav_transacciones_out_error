@@ -5,6 +5,7 @@ CREATE TABLE [dbo].[i_nav_transacciones_out_error](
 	[IdMensaje] [int] NOT NULL,
 	[IdTransaccionWMS] [int] NULL,
 	[IdTipoTransaccionWMS] [nvarchar](50) NULL,
+	[IdDirectorio] [int] NULL,
 	[ReferenciaERP] [nvarchar](50) NULL,
 	[TransaccionERP] [nvarchar](50) NULL,
 	[Mensaje] [nvarchar](350) NULL,
