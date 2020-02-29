@@ -1,7 +1,7 @@
 --#EJC20200225: Campos para guardar resultado de feel:
-alter table factura add FeelSerie nvarchar(25) null default 0
-alter table factura add FeelNumero nvarchar(25) null default 0
-alter table factura add FeelUUID nvarchar(50) null default 0
+alter table factura add FeelSerie nvarchar(25) null default ''
+alter table factura add FeelNumero nvarchar(25) null default ''
+alter table factura add FeelUUID nvarchar(50) null default ''
 alter table factura add FeelFechaProcesado datetime null default '19000101'
 
 update factura set feelserie = 0
@@ -14,3 +14,8 @@ alter table factura drop column FeelSerie
 alter table factura drop column FeelNumero
 alter table factura drop column FeelUUID
 alter table factura drop column FeelFechaProcesado
+
+alter table factura  drop constraint DF__Factura__FeelSer__3A4CA8FD
+alter table factura  drop constraint DF__Factura__FeelNum__282DF8C2
+alter table factura  drop constraint DF__Factura__FeelUUI__29221CFB
+alter table factura  drop constraint DF__Factura__FeelFec__2A164134
