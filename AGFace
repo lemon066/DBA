@@ -19,3 +19,17 @@ alter table factura  drop constraint DF__Factura__FeelSer__3A4CA8FD
 alter table factura  drop constraint DF__Factura__FeelNum__282DF8C2
 alter table factura  drop constraint DF__Factura__FeelUUI__29221CFB
 alter table factura  drop constraint DF__Factura__FeelFec__2A164134
+
+CREATE TABLE [dbo].[Resolucion_Contingencia](
+	[IdResolucionContingencia] [int] NOT NULL,
+	[Numero_Inicial] [float] NULL,
+	[Numero_Final] [float] NULL,
+	[Numero_Actual] [float] NULL,
+ CONSTRAINT [PK_resolucion_contingencia] PRIMARY KEY CLUSTERED 
+(
+	[IdResolucionContingencia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
