@@ -3,6 +3,7 @@ alter table factura add FeelSerie nvarchar(25) null default ''
 alter table factura add FeelNumero nvarchar(25) null default ''
 alter table factura add FeelUUID nvarchar(50) null default ''
 alter table factura add FeelFechaProcesado datetime null default '19000101'
+alter table factura add FeelContingencia null nvarchar(50) default ''
 
 update factura set feelserie = 0
 update factura set FeelNumero = 0
@@ -33,6 +34,7 @@ CREATE TABLE [dbo].[Contingencia_Resolucion](
 GO
 
 
+
 CREATE TABLE [dbo].[Contingencia_Log](
 	[IdContingencia] [int] NOT NULL,
 	[IdEmpresa] [int] NULL,
@@ -44,6 +46,7 @@ CREATE TABLE [dbo].[Contingencia_Log](
 	[FeelSerie] [nvarchar](50) NULL,
 	[FeelNumero] [nvarchar](50) NULL,
 	[FeelUUID] [nvarchar](50) NULL,
+	[FeelContingencia] [nvarchar](50) NULL,
  CONSTRAINT [PK_Contingencia_Log] PRIMARY KEY CLUSTERED 
 (
 	[IdContingencia] ASC
