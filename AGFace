@@ -47,6 +47,7 @@ CREATE TABLE [dbo].[Contingencia_Log](
 	[FeelNumero] [nvarchar](50) NULL,
 	[FeelUUID] [nvarchar](50) NULL,
 	[FeelContingencia] [nvarchar](50) NULL,
+	[Impreso] [bit] NULL default 0,
  CONSTRAINT [PK_Contingencia_Log] PRIMARY KEY CLUSTERED 
 (
 	[IdContingencia] ASC
