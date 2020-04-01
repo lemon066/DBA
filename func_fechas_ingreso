@@ -37,3 +37,13 @@ where re.IdTipoTransaccion = 'HCOC00' and oc.Fecha_Creacion>'20190301'
 
 UPDATE trans_oc_enc set Fecha_Recepcion = DATEADD(hour, 1, Fec_Agr)
 where Fecha_Recepcion<Fec_Agr
+
+UPDATE trans_re_enc set Fec_Agr = (select DATEADD(hour, 1, oc.Fec_Agr) from  trans_re_oc ocre inner join trans_re_enc re on ocre.IdRecepcionEnc = re.IdRecepcionEnc
+inner join trans_oc_enc oc on ocre.IdOrdenCompraEnc = oc.IdOrdenCompraEnc where trans_re_enc.IdRecepcionEnc = ocre.IdRecepcionEnc)
+
+UPDATE trans_oc_enc set Fecha_Recepcion = DATEADD(hour, 2, Fec_Agr)
+
+update trans_re_oc set hora_fin_hh = (select DATEADD(hour, 1, oc.Fecha_Recepcion) from  trans_re_oc ocre inner join trans_re_enc re on ocre.IdRecepcionEnc = re.IdRecepcionEnc
+inner join trans_oc_enc oc on ocre.IdOrdenCompraEnc = oc.IdOrdenCompraEnc where trans_re_oc.IdRecepcionEnc = ocre.IdRecepcionEnc)
+
+
