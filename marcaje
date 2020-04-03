@@ -1,0 +1,30 @@
+CREATE TABLE [dbo].[marcaje](
+	[IdMarcaje] [int] NOT NULL,
+	[IdEmpresa] [int] NOT NULL,
+	[IdBodega] [int] NOT NULL,
+	[IdOperador] [int] NOT NULL,
+	[IdDispositivo] [int] NOT NULL,
+	[IdHorarioLaboral] [int] NOT NULL,
+	[Fec_lectura] [date] NULL,
+	[Hora_inicio_horario] [datetime] NULL,
+	[Hora_fin_horario] [datetime] NULL,
+	[Ingreso_anticipado] [bit] NULL,
+	[Salida_anticipada] [bit] NULL,
+	[Ingreso_tardio] [bit] NULL,
+	[Salida_tardia] [bit] NULL,
+	[Hora_lectura] [datetime] NULL,
+	[Entro] [bit] NOT NULL,
+	[Salio] [bit] NOT NULL,
+	[Hora_entro] [datetime] NULL,
+	[Hora_salio] [datetime] NULL,
+	[Marcaje_manual] [bit] NULL CONSTRAINT [DF_marcaje_marcaje_manual]  DEFAULT ((0)),
+	[Primer_marcaje] [int] NULL,
+	[Marcaje_contabilizado] [bit] NULL,
+	[Marcaje_aproximado] [bit] NULL,
+	[Marcaje_fuera_de_sucursal] [bit] NULL,
+	[Es_bitacora] [bit] NULL,
+ CONSTRAINT [PK_marcaje_1] PRIMARY KEY CLUSTERED 
+(
+	[idMarcaje] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
