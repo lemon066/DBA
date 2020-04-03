@@ -1,8 +1,14 @@
-CREATE VIEW [dbo].[VW_Operador_Horario]
+ALTER VIEW [dbo].[VW_Operador_Horario]
 AS
 SELECT o.IdEmpresa, dbo.operador_bodega.IdBodega, o.IdOperador, dbo.jornada_laboral.IdJornada, dbo.jornada_laboral.fecha_inicio, dbo.jornada_laboral.fecha_fin, dbo.horario_laboral_enc.IdHorarioLaboralEnc, dbo.horario_laboral_det.dia, 
                   dbo.horario_laboral_det.hora_inicio, dbo.horario_laboral_det.hora_fin, dbo.horario_laboral_det.minimo_min_hora_ingreso, dbo.horario_laboral_det.maximo_min_hora_ingreso, dbo.horario_laboral_det.minimo_min_hora_salida, 
-                  dbo.horario_laboral_det.maximo_min_hora_salida, dbo.horario_laboral_det.tiempo_retraso_permitido, dbo.horario_laboral_det.horas_extras
+                  dbo.horario_laboral_det.maximo_min_hora_salida, dbo.horario_laboral_det.tiempo_retraso_permitido, dbo.horario_laboral_det.horas_extras, 
+                  o.activo AS OperadorActivo, 
+                  dbo.operador_bodega.activo AS OperadorBodegaActivo, 
+                  dbo.jornada_laboral.activo AS JornadaLaboralActivo, 
+                  dbo.horario_laboral_enc.activo AS HorarioActivo,
+                  dbo.horario_laboral_det.activo AS HorarioLaboralDetActivo, 
+                  dbo.turno.activo AS TurnoActivo
 FROM     dbo.operador AS o INNER JOIN
                   dbo.jornada_laboral ON o.IdJornada = dbo.jornada_laboral.IdJornada INNER JOIN
                   dbo.horario_laboral_enc ON dbo.jornada_laboral.IdJornada = dbo.horario_laboral_enc.IdJornada AND dbo.jornada_laboral.IdBodega = dbo.horario_laboral_enc.IdBodega INNER JOIN
