@@ -1,0 +1,11 @@
+CREATE VIEW [dbo].[VW_Operador_Horario]
+AS
+SELECT o.IdOperador, dbo.jornada_laboral.IdJornada, dbo.jornada_laboral.fecha_inicio, dbo.jornada_laboral.fecha_fin, dbo.horario_laboral_enc.IdHorarioLaboralEnc, dbo.horario_laboral_det.dia, dbo.horario_laboral_det.hora_inicio, 
+                  dbo.horario_laboral_det.hora_fin, dbo.horario_laboral_det.minimo_min_hora_ingreso, dbo.horario_laboral_det.maximo_min_hora_ingreso, dbo.horario_laboral_det.minimo_min_hora_salida, 
+                  dbo.horario_laboral_det.maximo_min_hora_salida, dbo.horario_laboral_det.tiempo_retraso_permitido, dbo.horario_laboral_det.horas_extras
+FROM     dbo.operador AS o INNER JOIN
+                  dbo.jornada_laboral ON o.IdJornada = dbo.jornada_laboral.IdJornada INNER JOIN
+                  dbo.horario_laboral_enc ON dbo.jornada_laboral.IdJornada = dbo.horario_laboral_enc.IdJornada INNER JOIN
+                  dbo.turno ON dbo.horario_laboral_enc.IdTurno = dbo.turno.IdTurno INNER JOIN
+                  dbo.horario_laboral_det ON dbo.horario_laboral_enc.IdHorarioLaboralEnc = dbo.horario_laboral_det.IdHorarioLaboralEnc
+GO
