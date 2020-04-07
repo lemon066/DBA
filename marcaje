@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[marcaje](
 	[IdEmpresa] [int] NOT NULL,
 	[IdBodega] [int] NOT NULL,
 	[IdOperador] [int] NOT NULL,
-	[IdDispositivo] [int] NOT NULL,
+	[IdDispositivo] nvarchar(50) NOT NULL,
 	[IdHorarioLaboral] [int] NOT NULL,
 	[Fec_lectura] [date] NULL,
 	[Hora_inicio_horario] [datetime] NULL,
