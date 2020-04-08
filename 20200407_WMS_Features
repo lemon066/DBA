@@ -1,0 +1,5 @@
+alter table operador add recibe bit default 0
+alter table operador add ubica bit default 0
+alter table operador add transporta bit default 0
+alter table operador add pickea bit default 0
+alter table operador add verifica bit default 0
