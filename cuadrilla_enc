@@ -1,0 +1,49 @@
+/*
+   miércoles, 8 de abril de 202016:38:29
+   User: sa
+   Server: PROGRAX\SQLEXPRESS
+   Database: IMS4MB_IDEALSA_PRD
+   Application: 
+*/
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_cuadrilla_enc
+	(
+	IdCuadrilla int NOT NULL,
+	IdTipoCuadrilla int NULL,
+	IdEmpresa int NULL,
+	IdBodega int NULL,
+	Nombre nvarchar(50) NULL,
+	Descripcion nvarchar(50) NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.Tmp_cuadrilla_enc SET (LOCK_ESCALATION = TABLE)
+GO
+IF EXISTS(SELECT * FROM dbo.cuadrilla_enc)
+	 EXEC('INSERT INTO dbo.Tmp_cuadrilla_enc (IdCuadrilla, IdEmpresa, IdBodega, Nombre, Descripcion)
+		SELECT IdCuadrilla, IdEmpresa, IdBodega, Nombre, Descripcion FROM dbo.cuadrilla_enc WITH (HOLDLOCK TABLOCKX)')
+GO
+DROP TABLE dbo.cuadrilla_enc
+GO
+EXECUTE sp_rename N'dbo.Tmp_cuadrilla_enc', N'cuadrilla_enc', 'OBJECT' 
+GO
+ALTER TABLE dbo.cuadrilla_enc ADD CONSTRAINT
+	PK_cuadrilla_enc PRIMARY KEY CLUSTERED 
+	(
+	IdCuadrilla
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.cuadrilla_enc', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.cuadrilla_enc', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.cuadrilla_enc', 'Object', 'CONTROL') as Contr_Per 
