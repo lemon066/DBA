@@ -3,3 +3,6 @@ alter table operador add ubica bit default 0
 alter table operador add transporta bit default 0
 alter table operador add pickea bit default 0
 alter table operador add verifica bit default 0
+
+update operador set recibe = 0, pickea =0, verifica =0, transporta =0, ubica =0 
+where recibe is null
