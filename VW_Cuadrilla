@@ -1,0 +1,7 @@
+CREATE VIEW [dbo].[VW_Cuadrilla]
+AS
+SELECT dbo.cuadrilla_enc.IdCuadrilla, dbo.bodega.codigo AS Bodega, dbo.cuadrilla_enc.Nombre, dbo.cuadrilla_tipo.Nombre AS Tipo, dbo.cuadrilla_enc.activo AS Activo
+FROM     dbo.cuadrilla_enc INNER JOIN
+                  dbo.cuadrilla_tipo ON dbo.cuadrilla_enc.IdTipoCuadrilla = dbo.cuadrilla_tipo.IdTipoCuadrilla INNER JOIN
+                  dbo.bodega ON dbo.cuadrilla_enc.IdBodega = dbo.bodega.IdBodega
+GO
