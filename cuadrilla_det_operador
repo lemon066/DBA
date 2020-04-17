@@ -25,3 +25,18 @@ ALTER TABLE dbo.cuadrilla_det_operador SET (LOCK_ESCALATION = TABLE)
 GO
 COMMIT
 select Has_Perms_By_Name(N'dbo.cuadrilla_det_operador', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.cuadrilla_det_operador', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.cuadrilla_det_operador', 'Object', 'CONTROL') as Contr_Per 
+
+CREATE TABLE [dbo].[cuadrilla_det_operador](
+	[IdCuadrillaDet] [int] NOT NULL,
+	[IdCuadrillaEnc] [int] NULL,
+	[IdOperadorBodega] [int] NULL,
+	[user_agr] [nvarchar](50) NULL,
+	[fec_agr] [datetime] NULL,
+	[user_mod] [nvarchar](50) NULL,
+	[fec_mod] [datetime] NULL,
+	[activo] [bit] NOT NULL,
+ CONSTRAINT [PK_cuadrilla_det] PRIMARY KEY CLUSTERED 
+(
+	[IdCuadrillaDet] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
