@@ -1,0 +1,46 @@
+USE [IMS4MB_IDEALSA_PRD]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[ConvertSecondsFormatoFecha]    Script Date: 2/04/2020 18:11:13 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =====================================================================================================
+-- Author:		Carolina Fuentes
+-- Create date: 02/04/2020
+-- Description:	Función creada para obtener el nombre completo de la ubicación
+-- =====================================================================================================
+CREATE FUNCTION [dbo].[Nombre_Completo_Ubicacion] 
+(
+	@IdUbicacion INT,
+	@IdBodega INT
+)
+RETURNS NVARCHAR(200)
+AS
+BEGIN
+	
+	DECLARE @resultado NVARCHAR(200)
+	-- Declare the return variable here
+	
+	SELECT @resultado = CASE WHEN T.es_rack = 1 THEN
+			'R' + RIGHT('00'+ SUBSTRING(t.descripcion,2,iif(CHARINDEX('-',t.descripcion,0)<0,1,CHARINDEX('-',t.descripcion,0)-2)),2) + ' - ' +
+			'C' + RIGHT('00'+ CONVERT(NVARCHAR(10),u.indice_x),2 )+ ' - ' +
+			'T' + SUBSTRING(t.descripcion,iif(CHARINDEX('-',t.descripcion,0)<0,0,CHARINDEX('-',t.descripcion,0)+1),1)+ ' - ' +
+			'N' + RIGHT('00' + CONVERT(NVARCHAR(10),u.nivel),2 )+ ' - ' +
+			'Pos' + u.orientacion_pos+ ' - ' +
+			'#' + CONVERT(NVARCHAR(10),u.IdUbicacion)
+			ELSE U.descripcion + ' - #' + CONVERT(NVARCHAR(10),u.IdUbicacion) END
+	FROM bodega_ubicacion u 
+	inner join bodega_tramo t on u.idtramo = t.idtramo 
+	WHERE (u.IdUbicacion=@IdUbicacion) 
+	And u.idbodega = @IdBodega
+
+	RETURN @resultado;
+
+END
+GO
+
+
