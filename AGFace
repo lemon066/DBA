@@ -288,3 +288,23 @@ GO
 
 
 
+CREATE TABLE [dbo].[ResolLog](
+	[FechaCam] [datetime] NOT NULL,
+	[Resol] [nvarchar](50) NOT NULL,
+	[Serie] [nvarchar](15) NOT NULL,
+	[CorelIni] [int] NOT NULL,
+	[CorelFin] [int] NULL,
+	[FechaRes] [datetime] NULL,
+	[USCambio] [nvarchar](15) NULL,
+	[USNombre] [nvarchar](50) NULL,
+	[Descripcion] [nvarchar](100) NULL,
+ CONSTRAINT [PK_ResolLog] PRIMARY KEY CLUSTERED 
+(
+	[FechaCam] ASC,
+	[Resol] ASC,
+	[Serie] ASC,
+	[CorelIni] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
