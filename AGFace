@@ -123,3 +123,114 @@ CREATE TABLE [dbo].[Empresa](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
+CREATE TABLE [dbo].[Factura](
+	[CodLinea] [int] NOT NULL,
+	[Invoice_Id] [int] NOT NULL,
+	[Number] [int] NULL,
+	[Serie] [nvarchar](50) NULL,
+	[TipoTrans] [nvarchar](100) NULL,
+	[Lines_Id] [int] NULL,
+	[Amount] [float] NULL,
+	[BusinessDay] [nvarchar](50) NULL,
+	[CashDiscount_Discounts] [float] NULL,
+	[CashDiscount_Line] [float] NULL,
+	[ChangeAmount] [float] NULL,
+	[Dates] [nvarchar](50) NULL,
+	[DiscountRate] [float] NULL,
+	[GrossAmount] [float] NULL,
+	[Id_Pos] [int] NULL,
+	[Id_User] [int] NULL,
+	[InvoiceItems_Id] [int] NULL,
+	[Item_Id] [int] NULL,
+	[MainBarcode] [nvarchar](50) NULL,
+	[MethodId] [nvarchar](100) NULL,
+	[MethodName] [nvarchar](100) NULL,
+	[Name_Pos] [nvarchar](100) NULL,
+	[Name_User] [nvarchar](100) NULL,
+	[NetAmount] [float] NULL,
+	[Payments_Id] [int] NULL,
+	[ProductId] [int] NULL,
+	[ProductName] [nvarchar](100) NULL,
+	[ProductPrice] [float] NULL,
+	[Quantity] [float] NULL,
+	[SurchargeAmount] [float] NULL,
+	[SurchargeRate] [float] NULL,
+	[TotalAmount] [float] NULL,
+	[TotalCostPrice] [float] NULL,
+	[Totals_Id] [int] NULL,
+	[UnitCostPrice] [float] NULL,
+	[UnitPrice] [float] NULL,
+	[UserId] [int] NULL,
+	[VatAmount] [float] NULL,
+	[VatId] [int] NULL,
+	[VatIncluded] [bit] NULL,
+	[VatRate] [float] NULL,
+	[Id_Customer] [int] NULL,
+	[FiscalName] [nvarchar](100) NULL,
+	[Street] [nvarchar](100) NULL,
+	[ZipCode] [nvarchar](50) NULL,
+	[Region] [nvarchar](50) NULL,
+	[Cif] [nvarchar](50) NULL,
+	[City] [nvarchar](50) NULL,
+	[Impresa] [bit] NULL,
+	[SerieRes] [nvarchar](50) NULL,
+	[CorelRes] [int] NULL,
+	[Anulada] [bit] NULL,
+	[FeelSerie] [nvarchar](25) NULL,
+	[FeelNumero] [nvarchar](25) NULL,
+	[FeelUUID] [nvarchar](50) NULL,
+	[FeelFechaProcesado] [datetime] NULL,
+	[FeelContingencia] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Factura] PRIMARY KEY CLUSTERED 
+(
+	[CodLinea] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_Id_Customer]  DEFAULT ((0)) FOR [Id_Customer]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_FiscalName]  DEFAULT ('') FOR [FiscalName]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_Street]  DEFAULT ('') FOR [Street]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_ZipCode]  DEFAULT ('') FOR [ZipCode]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_Region]  DEFAULT ('') FOR [Region]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_Cif]  DEFAULT ('') FOR [Cif]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_City]  DEFAULT ('') FOR [City]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_Impresa]  DEFAULT ((0)) FOR [Impresa]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_SerieRes]  DEFAULT ('') FOR [SerieRes]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_CorelRes]  DEFAULT ((0)) FOR [CorelRes]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  CONSTRAINT [DF_Factura_Anulada]  DEFAULT ((0)) FOR [Anulada]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  DEFAULT ('') FOR [FeelSerie]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  DEFAULT ('') FOR [FeelNumero]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  DEFAULT ('') FOR [FeelUUID]
+GO
+
+ALTER TABLE [dbo].[Factura] ADD  DEFAULT ('19000101') FOR [FeelFechaProcesado]
+GO
