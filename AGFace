@@ -338,3 +338,17 @@ CREATE TABLE [dbo].[Rol](
 	[IdRol] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
+CREATE TABLE [dbo].[SeriesInactivas](
+	[IdSerie] [int] NOT NULL,
+	[Serie] [nvarchar](20) NULL,
+	[Tipo] [nvarchar](20) NULL,
+	[Inicial] [int] NULL,
+	[Fin] [int] NULL,
+	[Actual] [int] NULL,
+	[Enviado] [bit] NULL,
+ CONSTRAINT [PK_SeriesInactivas] PRIMARY KEY CLUSTERED 
+(
+	[IdSerie] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
