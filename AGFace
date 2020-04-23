@@ -91,3 +91,16 @@ CREATE TABLE [dbo].[Cajero](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+CREATE TABLE [dbo].[Contingencia_Resolucion](
+	[IdResolucionContingencia] [int] NOT NULL,
+	[Numero_Inicial] [float] NULL,
+	[Numero_Final] [float] NULL,
+	[Numero_Actual] [float] NULL,
+ CONSTRAINT [PK_resolucion_contingencia] PRIMARY KEY CLUSTERED 
+(
+	[IdResolucionContingencia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
