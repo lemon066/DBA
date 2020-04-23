@@ -234,3 +234,15 @@ GO
 
 ALTER TABLE [dbo].[Factura] ADD  DEFAULT ('19000101') FOR [FeelFechaProcesado]
 GO
+
+
+CREATE TABLE [dbo].[LogInvalidoGFace](
+	[IdLogInvalido] [int] NOT NULL,
+	[Descripcion] [nvarchar](100) NULL,
+	[Fecha] [datetime] NULL,
+ CONSTRAINT [PK_LogInvalidoGFace] PRIMARY KEY CLUSTERED 
+(
+	[IdLogInvalido] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
