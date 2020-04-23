@@ -104,3 +104,22 @@ CREATE TABLE [dbo].[Contingencia_Resolucion](
 ) ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[Empresa](
+	[IdEmpresa] [int] NOT NULL,
+	[Codigo] [nvarchar](50) NULL,
+	[Nombre] [nvarchar](100) NOT NULL,
+	[NombreFiscal] [nvarchar](150) NOT NULL,
+	[NIT] [nvarchar](50) NOT NULL,
+	[DIRECCION] [nvarchar](200) NULL,
+	[TELEFONO] [nvarchar](100) NULL,
+	[CORREO] [nvarchar](100) NULL,
+	[CALLE] [nvarchar](100) NULL,
+	[CIUDAD] [nvarchar](100) NULL,
+	[REGION] [nvarchar](100) NULL,
+	[CODPOSTAL] [nvarchar](100) NULL,
+ CONSTRAINT [PK_Empresa] PRIMARY KEY CLUSTERED 
+(
+	[IdEmpresa] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
