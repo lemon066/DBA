@@ -55,3 +55,17 @@ CREATE TABLE [dbo].[Contingencia_Log](
 ) ON [PRIMARY]
 
 insert into contingencia_resolucion values (1,1,999999999,0 )
+
+CREATE TABLE [dbo].[Usuario](
+	[IdUsuario] [int] NOT NULL,
+	[Nombre] [nchar](20) NULL,
+	[Usuario] [nchar](20) NULL,
+	[Clave] [nchar](20) NULL,
+	[IdRol] [int] NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[IdUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
