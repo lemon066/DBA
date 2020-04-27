@@ -1,0 +1,42 @@
+/*
+   domingo, 26 de abril de 202023:20:18
+   User: 
+   Server: PROGRAX\SQLEXPRESS
+   Database: IMS4MB_IDEALSA_PRD_20200420
+   Application: 
+*/
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.us_solic_det
+	(
+	IdSugerenciaSolicDet int NOT NULL,
+	IdSugerenciaSolicEnc int NULL,
+	IdTramo int NULL,
+	Columna int NULL,
+	Nivel int NULL,
+	IdUbicacion int NULL,
+	Orientacion nvarchar(50) NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.us_solic_det ADD CONSTRAINT
+	PK_us_solic_det PRIMARY KEY CLUSTERED 
+	(
+	IdSugerenciaSolicDet
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.us_solic_det SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.us_solic_det', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.us_solic_det', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.us_solic_det', 'Object', 'CONTROL') as Contr_Per 
