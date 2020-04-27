@@ -1,0 +1,11 @@
+CREATE VIEW [dbo].[VW_Regla_Ubic_Prio_By_Bodega]
+AS
+SELECT        dbo.regla_ubic_prio_enc.IdReglaUbicPrioEnc, dbo.regla_ubic_prio_enc.IdEmpresa, dbo.regla_ubic_prio_enc.IdBodega, dbo.bodega.codigo, dbo.regla_ubic_prio_det.IdReglaUbicPrioParam, dbo.regla_ubic_prio_param.Nombre, 
+                         dbo.regla_ubic_prio_param.Activo, dbo.regla_ubic_prio_param.Orden
+FROM            dbo.regla_ubic_prio_param INNER JOIN
+                         dbo.regla_ubic_prio_det INNER JOIN
+                         dbo.bodega INNER JOIN
+                         dbo.regla_ubic_prio_enc ON dbo.bodega.IdBodega = dbo.regla_ubic_prio_enc.IdBodega ON dbo.regla_ubic_prio_det.IdReglaUbicPrioEnc = dbo.regla_ubic_prio_enc.IdReglaUbicPrioEnc ON 
+                         dbo.regla_ubic_prio_param.IdReglaUbicPrioParam = dbo.regla_ubic_prio_det.IdReglaUbicPrioParam LEFT OUTER JOIN
+                         dbo.regla_ubic_prio_producto ON dbo.regla_ubic_prio_enc.IdReglaUbicPrioEnc = dbo.regla_ubic_prio_producto.IdReglaUbicPrioEnc
+GO
