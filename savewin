@@ -1,0 +1,1 @@
+mount -t ntfs-3g /dev/sda5 /mnt/win -o remove_hiberfile 
