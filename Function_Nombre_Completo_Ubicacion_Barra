@@ -33,6 +33,7 @@ BEGIN
 			ELSE U.descripcion + ' - #' + CONVERT(NVARCHAR(10),u.IdUbicacion) END
 	FROM bodega_ubicacion u 
 	inner join bodega_tramo t on u.idtramo = t.idtramo 
+	and t.IdBodega = u.IdBodega
 	WHERE (u.IdUbicacion=@Barra OR u.codigo_barra=@Barra OR u.codigo_barra2=@Barra) 
 	And u.idbodega = @IdBodega
 
