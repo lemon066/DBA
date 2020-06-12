@@ -1,0 +1,3 @@
+ALTER TABLE trans_picking_det 
+ADD codigo NVARCHAR(25), 
+nombre NVARCHAR(100)
