@@ -1606,10 +1606,8 @@ GROUP BY dbo.propietarios.nombre_comercial, dbo.propietarios.IdPropietario, dbo.
                          dbo.producto_presentacion.Costo, dbo.stock.cantidad / dbo.producto_presentacion.factor, dbo.producto.existencia_min, dbo.producto.existencia_max
 GO
 
-CREATE NONCLUSTERED INDEX noncltrans_pe_det
+CREATE NONCLUSTERED INDEX noncltrans_pe_det ON [dbo].[trans_pe_det] ([IdEstado])
 INCLUDE ([IdPedidoDet],[IdPedidoEnc],[IdProductoBodega],[IdPresentacion],[IdUnidadMedidaBasica],[Cantidad])
-ON [dbo].[trans_pe_det] ([IdEstado])
-
 
 CREATE TABLE [dbo].[producto_kit_composicion](
 [IdProductoKitComposicion] [int] NOT NULL,
