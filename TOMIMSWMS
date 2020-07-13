@@ -1742,3 +1742,108 @@ ADD CONSTRAINT PK_BodegaTramoId PRIMARY KEY CLUSTERED (IdTramo, IdBodega);
 
 ALTER TABLE bodega_ubicacion
 ADD CONSTRAINT PK_BodegaUbicacionId PRIMARY KEY CLUSTERED (IdUbicacion, IdBodega);
+
+/*
+   lunes, 13 de julio de 202012:19:14
+   User: sa
+   Server: PROGRAX\SQLEXPRESS
+   Database: IMS4MB_CLC
+   Application: 
+*/
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.bodega_area SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.bodega_area', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.bodega_area', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.bodega_area', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.bodega_sector ADD CONSTRAINT
+	FK_bodega_sector_bodega_area FOREIGN KEY
+	(
+	IdArea,
+	IdBodega
+	) REFERENCES dbo.bodega_area
+	(
+	IdArea,
+	IdBodega
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.bodega_sector SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.bodega_sector', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.bodega_sector', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.bodega_sector', 'Object', 'CONTROL') as Contr_Per 
+
+/*
+   lunes, 13 de julio de 202012:20:06
+   User: sa
+   Server: PROGRAX\SQLEXPRESS
+   Database: IMS4MB_CLC
+   Application: 
+*/
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.bodega_sector SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.bodega_sector', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.bodega_sector', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.bodega_sector', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.bodega_tramo ADD CONSTRAINT
+	FK_bodega_tramo_bodega_sector FOREIGN KEY
+	(
+	IdSector,
+	IdBodega
+	) REFERENCES dbo.bodega_sector
+	(
+	IdSector,
+	IdBodega
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.bodega_tramo SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.bodega_tramo', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.bodega_tramo', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.bodega_tramo', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.bodega_ubicacion ADD CONSTRAINT
+	FK_bodega_ubicacion_bodega_tramo FOREIGN KEY
+	(
+	IdTramo,
+	IdBodega
+	) REFERENCES dbo.bodega_tramo
+	(
+	IdTramo,
+	IdBodega
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.bodega_ubicacion SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.bodega_ubicacion', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.bodega_ubicacion', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.bodega_ubicacion', 'Object', 'CONTROL') as Contr_Per 
+
