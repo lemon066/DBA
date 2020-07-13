@@ -1695,18 +1695,9 @@ ALTER TABLE BODEGA_UBICACION DROP CONSTRAINT PK_bodega_ubicacion_1
 	ON bt.IdSector =  bs.IdSector
 	INNER JOIN bodega_area ba
 	ON bs.IdArea = ba.IdArea
-	AND ba.IdBodega = @IdBodega;
+	INNER JOIN bodega b
+	ON ba.IdBodega = b.IdBodega
 	
-	UPDATE bt
-	SET bt.IdBodega = bs.IdBodega,
-	bt.IdArea = bs.IdArea
-	FROM bodega_tramo bt
-	INNER JOIN bodega_sector bs	
-	ON bt.IdSector =  bs.IdSector
-	INNER JOIN bodega_area ba
-	ON bs.IdArea = ba.IdArea
-	AND ba.IdBodega = 1;
-
     ALTER TABLE bodega_tramo
     ADD CONSTRAINT PK_BodegaTramoId PRIMARY KEY CLUSTERED (IdTramo, IdSector, IdArea, IdBodega);
 	
