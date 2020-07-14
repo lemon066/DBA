@@ -1,0 +1,11 @@
+ALTER VIEW [dbo].[VW_ProductoEstadoUbicacion]
+AS
+SELECT dbo.producto_estado_ubic.fec_agr, dbo.producto_estado_ubic.user_agr, dbo.producto_estado_ubic.fec_mod, dbo.producto_estado_ubic.user_mod, dbo.producto_estado_ubic.activo, dbo.producto_estado.nombre AS Estado,dbo.Nombre_Completo_Ubicacion(bodega_ubicacion.IdUbicacion,bodega_ubicacion.IdBodega) AS Ubicacion, dbo.producto_estado_ubic.IdEstado, dbo.producto_estado_ubic.IdProductoEstadUbic, 
+dbo.producto_estado_ubic.IdUbicacionDefecto, dbo.bodega.IdBodega, dbo.bodega.nombre AS Bodega
+FROM dbo.producto_estado RIGHT OUTER JOIN
+dbo.bodega_tramo INNER JOIN
+dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo INNER JOIN
+dbo.bodega ON dbo.bodega_tramo.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
+dbo.producto_estado_ubic ON dbo.bodega.IdBodega = dbo.producto_estado_ubic.IdBodega AND dbo.bodega_ubicacion.IdUbicacion = dbo.producto_estado_ubic.IdUbicacionDefecto ON dbo.producto_estado.IdEstado = dbo.producto_estado_ubic.IdEstado
+
+GO
