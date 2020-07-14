@@ -1,0 +1,17 @@
+/****** Object:  View [dbo].[VW_ProductoPresentacion]    Script Date: 13/07/2020 23:02:14 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER VIEW [dbo].[VW_ProductoPresentacion]
+AS
+SELECT p.nombre AS Producto, pp.IdPresentacion, pp.IdProducto, pp.codigo_barra, pp.nombre, pp.imprime_barra, pp.peso, pp.alto, pp.largo, pp.ancho, pp.factor, pp.MinimoExistencia, pp.MaximoExistencia, pp.user_agr, pp.fec_agr, 
+pp.user_mod, pp.fec_mod, pp.activo, pp.EsPallet, pp.Precio, pp.MinimoPeso, pp.MaximoPeso, pp.Costo, pp.CamasPorTarima, pp.CajasPorCama, pp.genera_lp_auto, pp.permitir_paletizar, pp.sistema, pp.IdPresentacionPallet, 
+dbo.producto_bodega.IdProductoBodega
+FROM dbo.producto_presentacion AS pp INNER JOIN
+dbo.producto AS p ON pp.IdProducto = p.IdProducto INNER JOIN
+dbo.producto_bodega ON p.IdProducto = dbo.producto_bodega.IdProducto
+GO
+
