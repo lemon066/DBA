@@ -3111,3 +3111,7 @@ ON s.IdProductoBodega = pb.IdProductoBodega
 Script Date: 26/03/2020 12:40:05 ******/
 ALTER TABLE EMPRESA ADD cantidad_decimales_despliegue int default 2
 ALTER TABLE EMPRESA ADD cantidad_decimales_calculo int default 6
+
+UPDATE EMPRESA SET CANTIDAD_DECIMALES_CALCULO = 6
+UPDATE EMPRESA SET CANTIDAD_DECIMALES_DESPLIEGUE = 2
+
