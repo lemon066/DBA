@@ -1,0 +1,3 @@
+CREATE NONCLUSTERED INDEX NCLI_trans_picking_ubic_20200720_EJC
+ON [dbo].[trans_picking_ubic] ([dañado_verificacion],[dañado_picking])
+INCLUDE ([IdPickingDet],[IdProductoBodega],[IdProductoEstado],[IdPresentacion],[lote],[fecha_vence],[lic_plate],[cantidad_solicitada],[cantidad_recibida],[cantidad_verificada])
