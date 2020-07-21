@@ -4,3 +4,7 @@ INCLUDE ([IdPickingDet],[IdProductoBodega],[IdProductoEstado],[IdPresentacion],[
 
 CREATE NONCLUSTERED INDEX NCLI_trans_pe_det_20200720_EJC
 ON [dbo].[trans_pe_det] ([IdPedidoEnc])
+
+CREATE NONCLUSTERED INDEX NCLI_trans_picking_ubic_20200721_EJC
+ON [dbo].[trans_picking_ubic] ([IdProductoEstado])
+INCLUDE ([IdPickingDet],[IdUbicacion],[IdPropietarioBodega],[IdProductoBodega],[IdPresentacion],[IdUnidadMedida],[lote],[fecha_vence],[acepto],[peso_recibido],[peso_verificado],[cantidad_recibida],[cantidad_verificada],[encontrado],[IdPedidoDet])
