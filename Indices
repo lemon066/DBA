@@ -16,3 +16,8 @@ INCLUDE ([IdDespachoEnc],[IdPedidoEnc],[CantidadDespachada],[PesoDespachado])
 CREATE NONCLUSTERED INDEX NCLI_trans_ajuste_det_20200728
 ON [dbo].[trans_ajuste_det] ([idtipoajuste])
 INCLUDE ([idajusteenc],[IdPresentacion],[IdUnidadMedida],[lote_original],[lote_nuevo],[fecha_vence_original],[fecha_vence_nueva],[peso_original],[peso_nuevo],[cantidad_original],[cantidad_nueva],[codigo_producto],[nombre_producto],[idmotivoajuste],[observacion],[codigo_ajuste],[enviado],[IdBodegaERP])
+
+CREATE NONCLUSTERED INDEX NCLI_trans_re_oc_IdRecepcionEnc_20200728
+ON [dbo].[trans_re_oc] ([IdRecepcionEnc])
+
+GO
