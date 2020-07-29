@@ -20,4 +20,8 @@ INCLUDE ([idajusteenc],[IdPresentacion],[IdUnidadMedida],[lote_original],[lote_n
 CREATE NONCLUSTERED INDEX NCLI_trans_re_oc_IdRecepcionEnc_20200728
 ON [dbo].[trans_re_oc] ([IdRecepcionEnc])
 
+CREATE NONCLUSTERED INDEX NCLI_trans_movimientos_IdUnidadMedida_20200729
+ON [dbo].[trans_movimientos] ([IdUnidadMedida])
+INCLUDE ([IdProductoBodega])
+
 GO
