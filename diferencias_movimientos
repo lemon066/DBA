@@ -1,0 +1,26 @@
+CREATE TABLE [dbo].[diferencias_movimientos](
+	[IdDiferencia] [int] NOT NULL,
+	[IdProductoBodega] [int] NULL,
+	[Codigo] [nvarchar](50) NULL,
+	[Nombre] [nvarchar](150) NULL,
+	[Lote] [nvarchar](50) NULL,
+	[IdProductoEstado] [int] NULL,
+	[Estado] [nvarchar](50) NULL,
+	[FechaVence] [date] NULL,
+	[InventarioInicial] [float] NULL,
+	[Ingresos] [float] NULL,
+	[AjustesPositivos] [float] NULL,
+	[AjustesNegativos] [float] NULL,
+	[Salidas] [float] NULL,
+	[ExistenciaAl] [float] NULL,
+	[ExistenciaActual] [float] NULL,
+	[ExistenciaSinEstado] [float] NULL,
+	[FechaGen] [date] NULL,
+	[Diferencia] [float] NULL,
+	[FaltaStock] [bit] NULL,
+ CONSTRAINT [PK_diferencias_movimientos] PRIMARY KEY CLUSTERED 
+(
+	[IdDiferencia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
