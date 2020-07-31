@@ -1,0 +1,11 @@
+CREATE NONCLUSTERED INDEX NCLI_DocumentPayment_20200703A_EJC
+ON [dbo].[DocumentPayment] ([MethodId],[InvoiceId])
+INCLUDE ([Amount])
+
+CREATE NONCLUSTERED INDEX NCLI_DocumentPayment_20200703_EJC
+ON [dbo].[DocumentPayment] ([MethodId])
+INCLUDE ([Amount],[InvoiceId])
+
+CREATE NONCLUSTERED INDEX NCLI_Ticket_20200703_EJC
+ON [dbo].[Ticket] ([CustomerId],[CreationDate])
+INCLUDE ([CustomerCif],[CustomerFiscalName],[Net],[Gross])
