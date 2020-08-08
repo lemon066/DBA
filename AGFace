@@ -366,3 +366,8 @@ GO
 ALTER TABLE [dbo].[tbl_cuenta_bancaria] ADD  DEFAULT ((0)) FOR [saldo]
 GO
 
+ALTER TABLE [dbo].[Factura]
+ADD IsCredit BIT NULL,
+IsPostPayment BIT NULL
+GO
+
