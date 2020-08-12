@@ -371,3 +371,7 @@ ADD IsCredit BIT NULL,
 IsPostPayment BIT NULL
 GO
 
+alter table factura add SerieAnnul nvarchar(50)
+alter table factura add NumberAnnul nvarchar(50)
+alter table factura add IsCredit bit default 0
+alter table factura add IsPostPayment bit default 0
