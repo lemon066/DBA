@@ -1,11 +1,12 @@
-ALTER VIEW [dbo].[VW_ProductoEstadoUbicacion]
+ALTER VIEW [dbo].[VW_ProductoEstadoUbic]
 AS
-SELECT dbo.producto_estado_ubic.fec_agr, dbo.producto_estado_ubic.user_agr, dbo.producto_estado_ubic.fec_mod, dbo.producto_estado_ubic.user_mod, dbo.producto_estado_ubic.activo, dbo.producto_estado.nombre AS Estado,dbo.Nombre_Completo_Ubicacion(bodega_ubicacion.IdUbicacion,bodega_ubicacion.IdBodega) AS Ubicacion, dbo.producto_estado_ubic.IdEstado, dbo.producto_estado_ubic.IdProductoEstadUbic, 
-dbo.producto_estado_ubic.IdUbicacionDefecto, dbo.bodega.IdBodega, dbo.bodega.nombre AS Bodega
-FROM dbo.producto_estado RIGHT OUTER JOIN
-dbo.bodega_tramo INNER JOIN
-dbo.bodega_ubicacion ON dbo.bodega_tramo.IdTramo = dbo.bodega_ubicacion.IdTramo INNER JOIN
-dbo.bodega ON dbo.bodega_tramo.IdBodega = dbo.bodega.IdBodega RIGHT OUTER JOIN
-dbo.producto_estado_ubic ON dbo.bodega.IdBodega = dbo.producto_estado_ubic.IdBodega AND dbo.bodega_ubicacion.IdUbicacion = dbo.producto_estado_ubic.IdUbicacionDefecto ON dbo.producto_estado.IdEstado = dbo.producto_estado_ubic.IdEstado
-
+SELECT        u.IdUbicacion, p.IdEstado, dbo.bodega.IdBodega, dbo.Nombre_Completo_Ubicacion(u.IdUbicacion, u.IdBodega) AS NombreUbic
+FROM            dbo.bodega_area INNER JOIN
+                         dbo.bodega ON dbo.bodega_area.IdBodega = dbo.bodega.IdBodega INNER JOIN
+                         dbo.bodega_sector ON dbo.bodega_area.IdArea = dbo.bodega_sector.IdArea AND dbo.bodega_area.IdBodega = dbo.bodega_sector.IdBodega INNER JOIN
+                         dbo.bodega_tramo ON dbo.bodega_sector.IdSector = dbo.bodega_tramo.IdSector AND dbo.bodega_sector.IdBodega = dbo.bodega_tramo.IdBodega INNER JOIN
+                         dbo.producto_estado_ubic AS p INNER JOIN
+                         dbo.bodega_ubicacion AS u ON p.IdUbicacionDefecto = u.IdUbicacion ON dbo.bodega_tramo.IdTramo = u.IdTramo AND dbo.bodega_tramo.IdBodega = u.IdBodega AND dbo.bodega_tramo.IdSector = u.IdSector AND 
+                         dbo.bodega_tramo.IdArea = u.IdArea
 GO
+
