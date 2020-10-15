@@ -6,3 +6,13 @@ alter table operador add verifica bit default 0
 
 update operador set recibe = 0, pickea =0, verifica =0, transporta =0, ubica =0 
 where recibe is null
+
+CREATE NONCLUSTERED INDEX NCLI_STOCK_20201014_EJC
+ON [dbo].[stock] ([IdUnidadMedida])
+INCLUDE ([IdPropietarioBodega],[IdProductoBodega],[IdProductoEstado],[IdPresentacion],[IdUbicacion],[IdUbicacion_anterior],[IdRecepcionEnc],[lote],[lic_plate],[serial],[cantidad],[fecha_ingreso],[fecha_vence],[añada],[peso],[atributo_variante_1],[idbodega])
+GO
+
+CREATE NONCLUSTERED INDEX NCLI_Trans_Re_OC_20201014EJC
+ON [dbo].[trans_re_oc] ([IdRecepcionEnc])
+
+
