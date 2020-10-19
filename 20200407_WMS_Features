@@ -19,3 +19,7 @@ ON [dbo].[trans_re_oc] ([IdRecepcionEnc])
 CREATE NONCLUSTERED INDEX NCLI_Trans_Pe_Det_20201018_EJC
 ON [dbo].[trans_pe_det] ([IdProductoBodega])
 INCLUDE ([IdPedidoEnc],[IdEstado],[IdPresentacion],[IdUnidadMedidaBasica],[Cantidad])
+
+CREATE NONCLUSTERED INDEX NCLI_trans_picking_ubic_20201019_EJC
+ON [dbo].[trans_picking_ubic] ([IdStock],[IdStockRes],[IdBodega])
+INCLUDE ([IdPickingDet],[IdUbicacion],[acepto],[peso_recibido],[peso_verificado],[cantidad_recibida],[cantidad_verificada],[encontrado],[dañado_verificacion],[cantidad_despachada],[dañado_picking])
