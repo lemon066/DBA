@@ -16,3 +16,6 @@ CREATE NONCLUSTERED INDEX NCLI_Trans_Re_OC_20201014EJC
 ON [dbo].[trans_re_oc] ([IdRecepcionEnc])
 
 
+CREATE NONCLUSTERED INDEX NCLI_Trans_Pe_Det_20201018_EJC
+ON [dbo].[trans_pe_det] ([IdProductoBodega])
+INCLUDE ([IdPedidoEnc],[IdEstado],[IdPresentacion],[IdUnidadMedidaBasica],[Cantidad])
